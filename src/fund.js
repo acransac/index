@@ -1,0 +1,37 @@
+// Copyright (c) Adrien Cransac
+// License: No license
+
+function makeFund(fundName, currency, assetsValues) {
+  return [fundName, currency, assetsValues];
+}
+
+function fundName(fund) {
+  return fund[0];
+}
+
+function currency(fund) {
+  return fund[1];
+}
+
+/*
+ * Get the assets' values from a fund
+ * @param {Fund} fund - The fund
+ * @return {[AssetsValue]}
+ */
+function assetsValues(fund) {
+  return fund[2];
+}
+
+/*
+ * Read fund data from JSON. There can be multiple funds
+ * @param {string} jsonString - The funds' JSON data as a string. It is always an array of fund entries
+ * @return {[Fund]}
+ */
+function readFundsFromJson(jsonString) {
+  return JSON.parse(jsonString).map(fundJson => makeFund(fundJson.fundName, fundJson.currency, fundJson.assetsValues));
+}
+
+module.exports = {
+  assetsValues,
+  readFundsFromJson
+};

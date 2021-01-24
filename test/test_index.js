@@ -2,6 +2,7 @@
 // License: No license
 
 const { makeAssetsValue } = require('../src/assetsvalue.js');
+const { assetsValues, readFundsFromJson } = require('../src/fund.js');
 const { index } = require('../src/index.js');
 const Test = require('@acransac/tester');
 
@@ -35,9 +36,26 @@ function test_indexWithAddedCash(finish, check) {
                                      [100, 100, 75])));
 }
 
+function test_indexFromFundJson(finish, check) {
+  const testFundJson = JSON.stringify([
+    {
+      fundName: "Test Fund",
+      currency: "USD",
+      assetsValues: [
+        makeAssetsValue(Date(2021, 0, 24), 1000.0, 0.0),
+        makeAssetsValue(Date(2021, 0, 25), 2000.0, 0.0),
+        makeAssetsValue(Date(2021, 0, 26), 1500.0, 0.0)
+      ]
+    }
+  ]);
+
+  return finish(check(areArraysEqual(index(assetsValues(readFundsFromJson(testFundJson)[0])), [100, 200, 150])));
+}
+
 Test.run([
   Test.makeTest(test_emptyIndex, "Empty Index"),
   Test.makeTest(test_oneValueIndex, "One-Value Index"),
   Test.makeTest(test_indexWithoutAddedCash, "Index Without Added Cash"),
-  Test.makeTest(test_indexWithAddedCash, "Index With Added Cash")
+  Test.makeTest(test_indexWithAddedCash, "Index With Added Cash"),
+  Test.makeTest(test_indexFromFundJson, "Index From Fund JSON")
 ], "Test Index");
