@@ -1,0 +1,22 @@
+{
+  "name": "indexjs",
+  "version": "1.0.0",
+  "description": "Investments performance measurement utilities",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "(cd test && node test_index.js)"
+  },
+  "author": "Adrien Cransac",
+  "license": "No license",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git-codecommit.eu-central-1.amazonaws.com/v1/repos/indexjs"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "https://git-codecommit.eu-central-1.amazonaws.com/v1/repos/indexjs",
+  "devDependencies": {
+    "@acransac/tester": "^1.0.0"
+  }
+}
