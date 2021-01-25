@@ -1,6 +1,8 @@
 // Copyright (c) Adrien Cransac
 // License: No license
 
+const { readAssetsValuesFromJson } = require('./assetsvalue.js');
+
 function makeFund(fundName, currency, assetsValues) {
   return [fundName, currency, assetsValues];
 }
@@ -28,7 +30,9 @@ function assetsValues(fund) {
  * @return {[Fund]}
  */
 function readFundsFromJson(jsonString) {
-  return JSON.parse(jsonString).map(fundJson => makeFund(fundJson.fundName, fundJson.currency, fundJson.assetsValues));
+  return JSON.parse(jsonString).map(fundJson => makeFund(fundJson.fundName,
+                                                         fundJson.currency,
+                                                         readAssetsValuesFromJson(JSON.stringify(fundJson.assetsValues))));
 }
 
 module.exports = {

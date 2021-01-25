@@ -42,9 +42,9 @@ function test_indexFromFundJson(finish, check) {
       fundName: "Test Fund",
       currency: "USD",
       assetsValues: [
-        makeAssetsValue(Date(2021, 0, 24), 1000.0, 0.0),
-        makeAssetsValue(Date(2021, 0, 25), 2000.0, 0.0),
-        makeAssetsValue(Date(2021, 0, 26), 1500.0, 0.0)
+        {valueDate: Date(2021, 0, 24), marketValue: 1000.0, addedCash: 0.0},
+        {valueDate: Date(2021, 0, 25), marketValue: 2000.0, addedCash: 0.0},
+        {valueDate: Date(2021, 0, 26), marketValue: 1500.0, addedCash: 0.0}
       ]
     }
   ]);

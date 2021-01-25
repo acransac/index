@@ -25,6 +25,17 @@ function addedCash(assetsValue) {
 }
 
 /*
+ * Read assets values from JSON
+ * @param {string} jsonString - The assets values JSON as a string. It is always an array of assets values
+ * @return {[AssetsValue]}
+ */
+function readAssetsValuesFromJson(jsonString) {
+  return JSON.parse(jsonString).map(assetsValue => makeAssetsValue(assetsValue.valueDate,
+                                                                   assetsValue.marketValue,
+                                                                   assetsValue.addedCash));
+}
+
+/*
  * Get the assets' value after taking deposited or withdrawn cash into account. This is the actual market value of the assets
  * @param {AssetsValue} assetsValue - The assets' value
  * @return {number}
@@ -44,6 +55,7 @@ function valueBeforeAddedCash(assetsValue) {
 
 module.exports = {
   makeAssetsValue,
+  readAssetsValuesFromJson,
   valueAfterAddedCash,
   valueBeforeAddedCash
 };
