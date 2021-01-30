@@ -18,5 +18,9 @@
   "homepage": "https://git-codecommit.eu-central-1.amazonaws.com/v1/repos/indexjs",
   "devDependencies": {
     "@acransac/tester": "^1.0.0"
+  },
+  "dependencies": {
+    "asciichart": "^1.5.25",
+    "momentjs": "^2.0.0"
   }
 }
