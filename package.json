@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "asciichart": "^1.5.25",
-    "moment": "^2.29.1"
+    "luxon": "^1.25.0"
   }
 }
