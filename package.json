@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "asciichart": "^1.5.25",
-    "momentjs": "^2.0.0"
+    "moment": "^2.29.1"
   }
 }
