@@ -12,6 +12,11 @@ function makeAssetsValue(valueDate, marketValue, addedCash) {
   return [valueDate, marketValue, addedCash];
 }
 
+/*
+ * Get the date of the assets' valuation
+ * @param {AssetsValue} assetsValue - The assets value
+ * @return {Date}
+ */
 function valueDate(assetsValue) {
   return assetsValue[0];
 }
@@ -57,5 +62,6 @@ module.exports = {
   makeAssetsValue,
   readAssetsValuesFromJson,
   valueAfterAddedCash,
-  valueBeforeAddedCash
+  valueBeforeAddedCash,
+  valueDate
 };

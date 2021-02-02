@@ -19,20 +19,20 @@ function test_emptyIndex(finish, check) {
 }
 
 function test_oneValueIndex(finish, check) {
-  return finish(check(areArraysEqual(index([makeAssetsValue(Date(2021, 0, 24), 1000.0, 0.0)]), [100])));
+  return finish(check(areArraysEqual(index([makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0)]), [100])));
 }
 
 function test_indexWithoutAddedCash(finish, check) {
-  return finish(check(areArraysEqual(index([makeAssetsValue(Date(2021, 0, 24), 1000.0, 0.0),
-                                            makeAssetsValue(Date(2021, 0, 25), 2000.0, 0.0),
-                                            makeAssetsValue(Date(2021, 0, 26), 1500.0, 0.0)]),
+  return finish(check(areArraysEqual(index([makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
+                                            makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
+                                            makeAssetsValue(new Date(2021, 0, 26), 1500.0, 0.0)]),
                                      [100, 200, 150])));
 }
 
 function test_indexWithAddedCash(finish, check) {
-  return finish(check(areArraysEqual(index([makeAssetsValue(Date(2021, 0, 24), 1000.0, 0.0),
-                                            makeAssetsValue(Date(2021, 0, 25), 2000.0, 1000.0),
-                                            makeAssetsValue(Date(2021, 0, 26), 1500.0, 0.0)]),
+  return finish(check(areArraysEqual(index([makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
+                                            makeAssetsValue(new Date(2021, 0, 25), 2000.0, 1000.0),
+                                            makeAssetsValue(new Date(2021, 0, 26), 1500.0, 0.0)]),
                                      [100, 100, 75])));
 }
 
@@ -42,9 +42,9 @@ function test_indexFromFundJson(finish, check) {
       fundName: "Test Fund",
       currency: "USD",
       assetsValues: [
-        {valueDate: Date(2021, 0, 24), marketValue: 1000.0, addedCash: 0.0},
-        {valueDate: Date(2021, 0, 25), marketValue: 2000.0, addedCash: 0.0},
-        {valueDate: Date(2021, 0, 26), marketValue: 1500.0, addedCash: 0.0}
+        {valueDate: new Date(2021, 0, 24), marketValue: 1000.0, addedCash: 0.0},
+        {valueDate: new Date(2021, 0, 25), marketValue: 2000.0, addedCash: 0.0},
+        {valueDate: new Date(2021, 0, 26), marketValue: 1500.0, addedCash: 0.0}
       ]
     }
   ]);
