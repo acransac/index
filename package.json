@@ -4,7 +4,7 @@
   "description": "Investments performance measurement utilities",
   "main": "src/app.js",
   "scripts": {
-    "test": "(cd test && node test_index.js)"
+    "test": "(cd test && node test_all.js)"
   },
   "author": "Adrien Cransac",
   "license": "No license",
