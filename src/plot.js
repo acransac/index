@@ -15,8 +15,6 @@ const { DateTime } = require('luxon');
  * @param {number} maxRows - The maximum height of the chart in printable rows (number of lines)
  */
 function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, maxRows) {
-  const findDivisor = (number, candidate) => number % candidate > 0 ? findDivisor(number, candidate - 1) : candidate;
-
   const selectIndexValues = xIncrementInDays => (selection, currentDate, currentIndexValue, assetsValues, index) => {
     if (currentDate > endDate) {
       return selection;
@@ -37,11 +35,17 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, maxRows)
     }
   };
 
+  const correctedBeginDate = beginDate < valueDate(assetsValues[0]) ? valueDate(assetsValues[0]) : beginDate;
+
+  const findDivisor = (number, candidate) => number % candidate > 0 ? findDivisor(number, candidate - 1) : candidate;
+
+  const xIncrementInDays = (intervalInDays => intervalInDays / findDivisor(intervalInDays, maxColumns))
+                             (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(correctedBeginDate), "days").days);
+
   return plot(
-    (startIndex => selectIndexValues((intervalInDays => intervalInDays / findDivisor(intervalInDays, maxColumns))
-                                       (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(beginDate), "days").days))
-                     ([], beginDate, index[startIndex - 1], assetsValues.slice(startIndex), index.slice(startIndex)))
-      (assetsValues.findIndex(element => valueDate(element) > beginDate)),
+    (startIndex => selectIndexValues(xIncrementInDays)
+                     ([], correctedBeginDate, index[startIndex - 1], assetsValues.slice(startIndex), index.slice(startIndex)))
+      (assetsValues.findIndex(element => valueDate(element) > correctedBeginDate)),
     {height: maxRows});
 }
 
