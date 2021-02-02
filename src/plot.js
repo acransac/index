@@ -2,6 +2,7 @@
 // License: No license
 
 const { plot } = require('asciichart');
+const { valueDate } = require('./assetsvalue.js');
 const { DateTime } = require('luxon');
 
 /*
@@ -20,15 +21,19 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, maxRows)
     if (currentDate > endDate) {
       return selection;
     }
-    else if (currentDate <= valueDate(assetsValues[0]) {
-      return selectIndexValues([...selection, currentIndexValue],
-                               DateTime.fromJSDate(currentDate).plus({days: xIncrementInDays}).toJSDate(),
-                               currentIndexValue,
-                               assetsValues,
-                               index);
+    else if (index.length === 0) {
+      return [...selection, currentIndexValue];
+    }
+    else if (currentDate < valueDate(assetsValues[0])) {
+      return selectIndexValues(xIncrementInDays)
+               ([...selection, currentIndexValue],
+                DateTime.fromJSDate(currentDate).plus({days: xIncrementInDays}).toJSDate(),
+                currentIndexValue,
+                assetsValues,
+                index);
     }
     else {
-      return selectIndexValues(selection, currentDate, index[0], assetsValues.slice(1), index.slice(1));
+      return selectIndexValues(xIncrementInDays)(selection, currentDate, index[0], assetsValues.slice(1), index.slice(1));
     }
   };
 
