@@ -19,10 +19,7 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, maxRows)
     if (currentDate > endDate) {
       return selection;
     }
-    else if (index.length === 0) {
-      return [...selection, currentIndexValue];
-    }
-    else if (currentDate < valueDate(assetsValues[0])) {
+    else if (index.length === 0 || currentDate < valueDate(assetsValues[0])) {
       return selectIndexValues(xIncrementInDays)
                ([...selection, currentIndexValue],
                 DateTime.fromJSDate(currentDate).plus({days: xIncrementInDays}).toJSDate(),

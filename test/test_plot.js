@@ -56,7 +56,33 @@ function test_plotIntervalEarlierThanIndex(finish, check) {
     plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 10, 10) === control));
 }
 
+function test_plotIntervalLaterThanIndex(finish, check) {
+  const assetsValues = [
+    makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
+    makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
+    makeAssetsValue(new Date(2021, 0, 26), 1500.0, 0.0)
+  ];
+
+  const control = [
+    "     200.00 ┼╮  ",
+    "     195.00 ┤│  ",
+    "     190.00 ┤│  ",
+    "     185.00 ┤│  ",
+    "     180.00 ┤│  ",
+    "     175.00 ┤│  ",
+    "     170.00 ┤│  ",
+    "     165.00 ┤│  ",
+    "     160.00 ┤│  ",
+    "     155.00 ┤│  ",
+    "     150.00 ┤╰─ "
+  ].join("\n");
+
+  return finish(check(
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 10, 10) === control));
+}
+
 Test.run([
   Test.makeTest(test_plotIntervalMatchesIndex, "Plot Interval Matches Index"),
-  Test.makeTest(test_plotIntervalEarlierThanIndex, "Plot Interval Earlier Than Index")
+  Test.makeTest(test_plotIntervalEarlierThanIndex, "Plot Interval Earlier Than Index"),
+  Test.makeTest(test_plotIntervalLaterThanIndex, "Plot Interval Later Than Index")
 ], "Test Plot");
