@@ -1,6 +1,8 @@
 // Copyright (c) Adrien Cransac
 // License: No license
 
+const { DateTime } = require('luxon');
+
 /*
  * Value of a fund's assets at a point in time, with the contribution of deposited or withdrawn cash
  * @param {date} valueDate - The date of the value
@@ -35,7 +37,7 @@ function addedCash(assetsValue) {
  * @return {[AssetsValue]}
  */
 function readAssetsValuesFromJson(jsonString) {
-  return JSON.parse(jsonString).map(assetsValue => makeAssetsValue(assetsValue.valueDate,
+  return JSON.parse(jsonString).map(assetsValue => makeAssetsValue(DateTime.fromISO(assetsValue.valueDate).toJSDate(),
                                                                    assetsValue.marketValue,
                                                                    assetsValue.addedCash));
 }
