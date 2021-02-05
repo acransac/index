@@ -12,9 +12,9 @@ const { DateTime } = require('luxon');
  * @param {Date} beginDate - The date from which the index is plotted. Can only be later than the earliest assets value
  * @param {Date} endDate - The date to which the index is plotted. Can only be sooner than the latest assets value
  * @param {number} maxColumns - The maximum width of the chart in printable columns (number of characters)
- * @param {number} maxRows - The maximum height of the chart in printable rows (number of lines)
+ * @param {number} rows - The height of the chart in printable rows (number of lines)
  */
-function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, maxRows) {
+function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
   const selectIndexValues = xIncrementInDays => (selection, currentDate, currentIndexValue, assetsValues, index) => {
     if (currentDate > endDate) {
       return selection;
@@ -43,7 +43,7 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, maxRows)
     (startIndex => selectIndexValues(xIncrementInDays)
                      ([], correctedBeginDate, index[startIndex - 1], assetsValues.slice(startIndex), index.slice(startIndex)))
       (assetsValues.findIndex(element => valueDate(element) > correctedBeginDate)),
-    {height: maxRows});
+    {height: rows - 1});
 }
 
 module.exports = {

@@ -28,7 +28,7 @@ function test_plotIntervalMatchesIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 10) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 11) === control));
 }
 
 function test_plotIntervalEarlierThanIndex(finish, check) {
@@ -53,7 +53,7 @@ function test_plotIntervalEarlierThanIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 10, 10) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 10, 11) === control));
 }
 
 function test_plotIntervalLaterThanIndex(finish, check) {
@@ -78,7 +78,7 @@ function test_plotIntervalLaterThanIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 10, 10) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 10, 11) === control));
 }
 
 function test_plotIntervalWithinIndex(finish, check) {
@@ -105,12 +105,25 @@ function test_plotIntervalWithinIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 10) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 11) === control));
+}
+
+function test_plotHeight(finish, check) {
+  const assetsValues = [
+    makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
+    makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
+    makeAssetsValue(new Date(2021, 0, 26), 1500.0, 0.0)
+  ];
+
+  return finish(check(
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 10)
+      .split("\n").length === 10));
 }
 
 Test.run([
   Test.makeTest(test_plotIntervalMatchesIndex, "Plot Interval Matches Index"),
   Test.makeTest(test_plotIntervalEarlierThanIndex, "Plot Interval Earlier Than Index"),
   Test.makeTest(test_plotIntervalLaterThanIndex, "Plot Interval Later Than Index"),
-  Test.makeTest(test_plotIntervalWithinIndex, "Plot Interval Within Index")
+  Test.makeTest(test_plotIntervalWithinIndex, "Plot Interval Within Index"),
+  Test.makeTest(test_plotHeight, "Plot Height")
 ], "Test Plot");
