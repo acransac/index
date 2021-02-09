@@ -28,7 +28,7 @@ function test_plotIntervalMatchesIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 11) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11) === control));
 }
 
 function test_plotIntervalEarlierThanIndex(finish, check) {
@@ -53,7 +53,7 @@ function test_plotIntervalEarlierThanIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 10, 11) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 17, 11) === control));
 }
 
 function test_plotIntervalLaterThanIndex(finish, check) {
@@ -78,7 +78,7 @@ function test_plotIntervalLaterThanIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 10, 11) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 17, 11) === control));
 }
 
 function test_plotIntervalWithinIndex(finish, check) {
@@ -105,7 +105,7 @@ function test_plotIntervalWithinIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 11) === control));
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11) === control));
 }
 
 function test_plotHeight(finish, check) {
@@ -116,8 +116,32 @@ function test_plotHeight(finish, check) {
   ];
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 10, 10)
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 10)
       .split("\n").length === 10));
+}
+
+function test_plotWidthBiggerThanInterval(finish, check) {
+  const assetsValues = [
+    makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
+    makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
+    makeAssetsValue(new Date(2021, 0, 26), 1500.0, 0.0)
+  ];
+
+  return finish(check(
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
+      .split("\n").every(line => line.length <= 17)));
+}
+
+function test_plotWidthSmallerThanInterval(finish, check) {
+  const assetsValues = [
+    makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
+    makeAssetsValue(new Date(2021, 1, 10), 2000.0, 0.0),
+    makeAssetsValue(new Date(2021, 1, 24), 1500.0, 0.0)
+  ];
+
+  return finish(check(
+    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 1, 24), 17, 11)
+      .split("\n").every(line => line.length <= 17)));
 }
 
 Test.run([
@@ -125,5 +149,7 @@ Test.run([
   Test.makeTest(test_plotIntervalEarlierThanIndex, "Plot Interval Earlier Than Index"),
   Test.makeTest(test_plotIntervalLaterThanIndex, "Plot Interval Later Than Index"),
   Test.makeTest(test_plotIntervalWithinIndex, "Plot Interval Within Index"),
-  Test.makeTest(test_plotHeight, "Plot Height")
+  Test.makeTest(test_plotHeight, "Plot Height"),
+  Test.makeTest(test_plotWidthBiggerThanInterval, "Plot Width Bigger Than Interval"),
+  Test.makeTest(test_plotWidthSmallerThanInterval, "Plot Width Smaller Than Interval")
 ], "Test Plot");

@@ -11,7 +11,7 @@ const { DateTime } = require('luxon');
  * @param {[number]} index - The corresponding complete sequence of index values
  * @param {Date} beginDate - The date from which the index is plotted. Can only be later than the earliest assets value
  * @param {Date} endDate - The date to which the index is plotted. Can only be sooner than the latest assets value
- * @param {number} maxColumns - The maximum width of the chart in printable columns (number of characters)
+ * @param {number} maxColumns - The maximum width of the chart in printable columns (number of characters). It is at least 15
  * @param {number} rows - The height of the chart in printable rows (number of lines)
  */
 function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
@@ -36,7 +36,8 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
 
   const findDivisor = (number, candidate) => number % candidate > 0 ? findDivisor(number, candidate - 1) : candidate;
 
-  const xIncrementInDays = (intervalInDays => intervalInDays / findDivisor(intervalInDays, maxColumns))
+  const xIncrementInDays = (intervalInDays => intervalInDays / findDivisor(intervalInDays,
+                                                                           maxColumns > 14 ? maxColumns - 14 : 1))
                              (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(correctedBeginDate), "days").days);
 
   return plot(
