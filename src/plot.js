@@ -5,6 +5,8 @@ const { plot } = require('asciichart');
 const { valueDate } = require('./assetsvalue.js');
 const { DateTime } = require('luxon');
 
+// # Index
+
 /*
  * Plot an index over time. The dimensions of the chart can be specified
  * @param {[AssetsValue]} assetsValues - The array of all assets values from which the index is calculated
@@ -34,17 +36,25 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
 
   const correctedBeginDate = beginDate < valueDate(assetsValues[0]) ? valueDate(assetsValues[0]) : beginDate;
 
-  const findDivisor = (number, candidate) => number % candidate > 0 ? findDivisor(number, candidate - 1) : candidate;
-
-  const xIncrementInDays = (intervalInDays => intervalInDays / findDivisor(intervalInDays,
-                                                                           maxColumns > 14 ? maxColumns - 14 : 1))
-                             (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(correctedBeginDate), "days").days);
-
   return plot(
-    (startIndex => selectIndexValues(xIncrementInDays)
+    (startIndex => selectIndexValues(timeStep(correctedBeginDate, endDate, maxColumns > 14 ? maxColumns - 14 : 1))
                      ([], correctedBeginDate, index[startIndex - 1], assetsValues.slice(startIndex), index.slice(startIndex)))
       (assetsValues.findIndex(element => valueDate(element) > correctedBeginDate)),
     {height: rows - 1});
+}
+
+// # Timeline
+
+function plotTimeline(beginDate, endDate, maxColumns) {
+}
+
+// # Helpers
+
+function timeStep(beginDate, endDate, maxSteps) {
+  const findDivisor = (number, candidate) => number % candidate > 0 ? findDivisor(number, candidate - 1) : candidate;
+
+  return (duration => duration / findDivisor(duration, maxSteps))
+           (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(beginDate)).as("days"));
 }
 
 module.exports = {
