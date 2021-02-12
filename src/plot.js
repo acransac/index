@@ -54,7 +54,7 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
  * @return {string}
  */
 function plotTimeline(beginDate, endDate, maxColumns) {
-  const timeIncrement = timeStep(beginDate, endDate, maxColumns);
+  const timeIncrement = timeStep(beginDate, endDate, maxColumns - 1);
 
   const plotArrow = availableWidth => new Array(availableWidth).fill("─").join("");
 
