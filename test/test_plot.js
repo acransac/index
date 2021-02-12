@@ -3,8 +3,10 @@
 
 const { makeAssetsValue } = require('../src/assetsvalue.js');
 const { index } = require('../src/index.js');
-const { plotIndex } = require('../src/plot.js');
+const { plotIndex, plotTimeline } = require('../src/plot.js');
 const Test = require('@acransac/tester');
+
+// # Index
 
 function test_plotIntervalMatchesIndex(finish, check) {
   const assetsValues = [
@@ -144,6 +146,26 @@ function test_plotWidthSmallerThanInterval(finish, check) {
       .split("\n").every(line => line.length <= 17)));
 }
 
+// # Timeline
+
+function test_plotTimeline(finish, check) {
+  const control1 = [
+    "─────>",
+    "D Jan",
+    "  21 "
+  ].join("\n");
+
+  const control2 = [
+    "────────>",
+    "ASONDJFM",
+    "2020 21 "
+  ].join("\n");
+
+  return finish(check(
+    plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 5) === control1
+      && plotTimeline(new Date(2020, 7, 1), new Date(2021, 3, 6), 8) === control2));
+}
+
 Test.run([
   Test.makeTest(test_plotIntervalMatchesIndex, "Plot Interval Matches Index"),
   Test.makeTest(test_plotIntervalEarlierThanIndex, "Plot Interval Earlier Than Index"),
@@ -151,5 +173,6 @@ Test.run([
   Test.makeTest(test_plotIntervalWithinIndex, "Plot Interval Within Index"),
   Test.makeTest(test_plotHeight, "Plot Height"),
   Test.makeTest(test_plotWidthBiggerThanInterval, "Plot Width Bigger Than Interval"),
-  Test.makeTest(test_plotWidthSmallerThanInterval, "Plot Width Smaller Than Interval")
+  Test.makeTest(test_plotWidthSmallerThanInterval, "Plot Width Smaller Than Interval"),
+  Test.makeTest(test_plotTimeline, "Plot Timeline")
 ], "Test Plot");

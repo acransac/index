@@ -64,14 +64,17 @@ function plotTimeline(beginDate, endDate, maxColumns) {
   };
 
   const plotYear = (date, availableWidth) => {
-    if (availableWidth > 2) {
-      return (year => year.padEnd(availableWidth, " "))
-               (availableWidth > 4 ? DateTime.fromJSDate(date).year.toString()
-                                   : DateTime.fromJSDate(date).year.toString().slice(-2));
-    }
-    else {
-      return "";
-    }
+    return (year => year.padEnd(availableWidth, " "))((() => {
+      if (availableWidth > 4) {
+        return DateTime.fromJSDate(date).year.toString();
+      }
+      else if (availableWidth > 2) {
+        return DateTime.fromJSDate(date).year.toString().slice(-2);
+      }
+      else {
+        return "";
+      }
+    })());
   };
 
   const plotTimelineImpl =
