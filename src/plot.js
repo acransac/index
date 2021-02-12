@@ -56,21 +56,18 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
 function plotTimeline(beginDate, endDate, maxColumns) {
   const timeIncrement = timeStep(beginDate, endDate, maxColumns);
 
+  const plotArrow = availableWidth => new Array(availableWidth).fill("─").join("");
+
   const plotMonth = (date, availableWidth) => {
-    if (availableWidth >= 3) {
-      return `${DateTime.fromJSDate(date).monthShort.padEnd(availableWidth - 3, " ")}`;
-    }
-    else {
-      return `${DateTime.fromJSDate(date).monthShort[0].padEnd(availableWidth - 1, " ")}`;
-    }
+    return (month => month.padEnd(availableWidth, " "))
+             (availableWidth >= 3 ? DateTime.fromJSDate(date).monthShort : DateTime.fromJSDate(date).monthShort[0]);
   };
 
   const plotYear = (date, availableWidth) => {
-    if (availableWidth > 4) {
-      return `${DateTime.fromJSDate(date).year.toString().padEnd(availableWidth - 4, " ")}`;
-    }
-    else (availableWidth > 2) {
-      return `${DateTime.fromJSDate(date).year.toString().slice(-2).padEnd(availableWidth - 1, " ")}`;
+    if (availableWidth > 2) {
+      return (year => year.padEnd(availableWidth, " "))
+               (availableWidth > 4 ? DateTime.fromJSDate(date).year.toString()
+                                   : DateTime.fromJSDate(date).year.toString().slice(-2));
     }
     else {
       return "";
@@ -80,7 +77,11 @@ function plotTimeline(beginDate, endDate, maxColumns) {
   const plotTimelineImpl =
     (arrowLine, monthLine, yearLine, previousMonth, previousYear, currentDate, monthPlottableWidth, yearPlottableWidth) => {
       if (currentDate > endDate) {
-        return `${arrowLine}>\n${monthLine}\n${yearLine}`;
+        return [
+          `${arrowLine}${monthPlottableWidth > 1 ? plotArrow(monthPlottableWidth - 1) : ""}>`,
+          `${monthLine}${monthPlottableWidth > 1 ? plotMonth(new Date(previousYear, previousMonth), monthPlottableWidth - 1) : ""}`,
+          `${yearLine}${yearPlottableWidth > 1 ? plotYear(new Date(previousYear, previousMonth), yearPlottableWidth - 1) : ""}`
+        ].join("\n");
       }
       else if (previousMonth === currentDate.getMonth()) {
         return plotTimelineImpl(arrowLine,
@@ -93,13 +94,13 @@ function plotTimeline(beginDate, endDate, maxColumns) {
                                 yearPlottableWidth + 1);
       }
       else if (previousYear === currentDate.getFullYear()) {
-        return plotTimelineImpl(`${arrowLine}${new Array(monthPlottableWidth).fill("─").join("")}`,
+        return plotTimelineImpl(`${arrowLine}${plotArrow(monthPlottableWidth)}`,
                                 `${monthLine}${plotMonth(new Date(previousYear, previousMonth), monthPlottableWidth)}`,
                                 yearLine,
                                 currentDate.getMonth(),
                                 previousYear,
                                 DateTime.fromJSDate(currentDate).plus({days: timeIncrement}).toJSDate(),
-                                0,
+                                1,
                                 yearPlottableWidth + 1);
       }
       else {
@@ -109,8 +110,8 @@ function plotTimeline(beginDate, endDate, maxColumns) {
                                 currentDate.getMonth(),
                                 currentDate.getFullYear(),
                                 DateTime.fromJSDate(currentDate).plus({days: timeIncrement}).toJSDate(),
-                                0,
-                                0);
+                                1,
+                                1);
       }
   };
 
