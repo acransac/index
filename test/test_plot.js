@@ -162,13 +162,23 @@ function test_plotTimeline(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 6) === control1
-      && plotTimeline(new Date(2020, 7, 1), new Date(2021, 3, 6), 9) === control2));
+    plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 6, 0) === control1
+      && plotTimeline(new Date(2020, 7, 1), new Date(2021, 3, 6), 9, 0) === control2));
 }
 
 function test_plotTimelineWidth(finish, check) {
   return finish(check(
-    plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 5).split("\n").every(line => line.length <= 5)));
+    plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 5, 0).split("\n").every(line => line.length <= 5)));
+}
+
+function test_plotTimelineOffset(finish, check) {
+  const control = [
+    "  ─────>",
+    "  D Jan",
+    "    21 "
+  ].join("\n");
+
+  return finish(check(plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 6, 2) === control));
 }
 
 Test.run([
@@ -180,5 +190,6 @@ Test.run([
   Test.makeTest(test_plotWidthBiggerThanInterval, "Plot Width Bigger Than Interval"),
   Test.makeTest(test_plotWidthSmallerThanInterval, "Plot Width Smaller Than Interval"),
   Test.makeTest(test_plotTimeline, "Plot Timeline"),
-  Test.makeTest(test_plotTimelineWidth, "Plot Timeline Width")
+  Test.makeTest(test_plotTimelineWidth, "Plot Timeline Width"),
+  Test.makeTest(test_plotTimelineOffset, "Plot Timeline Offset")
 ], "Test Plot");
