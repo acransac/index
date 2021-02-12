@@ -129,7 +129,7 @@ function timeStep(beginDate, endDate, maxSteps) {
   const findDivisor = (number, candidate) => number % candidate > 0 ? findDivisor(number, candidate - 1) : candidate;
 
   return (duration => duration / findDivisor(duration, maxSteps))
-           (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(beginDate)).as("days"));
+           (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(beginDate), "days").as("days"));
 }
 
 module.exports = {
