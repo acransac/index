@@ -3,7 +3,7 @@
 
 const { plot } = require('asciichart');
 const { valueDate } = require('./assetsvalue.js');
-const { beginDateInPlottableDomain } = require('./helpers.js');
+const { dateInPlottableDomain, predecessorIdInIndex } = require('./helpers.js');
 const { DateTime } = require('luxon');
 
 // # Index
@@ -36,12 +36,12 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
     }
   };
 
-  const correctedBeginDate = beginDateInPlottableDomain(assetsValues, beginDate);
+  const correctedBeginDate = dateInPlottableDomain(assetsValues, beginDate);
 
   return plot(
-    (startIndex => selectIndexValues(timeStep(correctedBeginDate, endDate, maxColumns > 14 ? maxColumns - 14 : 1))
-                     ([], correctedBeginDate, index[startIndex - 1], assetsValues.slice(startIndex), index.slice(startIndex)))
-      (assetsValues.findIndex(element => valueDate(element) > correctedBeginDate)),
+    (startId => selectIndexValues(timeStep(correctedBeginDate, endDate, maxColumns > 14 ? maxColumns - 14 : 1))
+                     ([], correctedBeginDate, index[startId], assetsValues.slice(startId + 1), index.slice(startId + 1)))
+      (predecessorIdInIndex(assetsValues, correctedBeginDate)),
     {height: rows - 1});
 }
 
