@@ -13,7 +13,7 @@ const numeral = require('numeral');
  * @return {string}
  */
 function indexHighlights(assetsValues, index, beginDate, endDate) {
-  const indexBeginId = predecessorIdInIndex(assetsValues, dateInPlottableDomain(beginDate));
+  const indexBeginId = predecessorIdInIndex(assetsValues, dateInPlottableDomain(assetsValues, beginDate));
 
   const indexEndId = predecessorIdInIndex(assetsValues, endDate);
 
@@ -23,13 +23,13 @@ function indexHighlights(assetsValues, index, beginDate, endDate) {
                                   [index[indexBeginId], index[indexBeginId]]);
 
   const [lastVariation, lastVariationInPercentage] = 
-    (lastVariation => [lastVariation, lastVariation * 100 / index[indexEndId - 1]])(index[indexEndId] - index[indexEndId - 1]);
+    (lastVariation => [lastVariation, lastVariation / index[indexEndId - 1]])(index[indexEndId] - index[indexEndId - 1]);
 
   return [
-    `Begin: ${numeral(index[indexBeginId]).format("0.00")}`,
-    `End: ${numeral(index[indexEndId]).format("0.00")}`,
-    `Min: ${numeral(min).format("0.00")}`,
-    `Max: ${numeral(max).format("0.00")}`,
+    `Begin:          ${numeral(index[indexBeginId]).format("0.00")}`,
+    `End:            ${numeral(index[indexEndId]).format("0.00")}`,
+    `Min:            ${numeral(min).format("0.00")}`,
+    `Max:            ${numeral(max).format("0.00")}`,
     `Last Variation: ${numeral(lastVariation).format("+0.00")} (${numeral(lastVariationInPercentage).format("+0.00%")})`
   ].join("\n");
 }

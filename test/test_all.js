@@ -5,4 +5,6 @@
   await require('./test_index.js');
 
   await require('./test_plot.js');
+
+  await require('./test_log.js');
 })();
