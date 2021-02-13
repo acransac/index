@@ -3,6 +3,7 @@
 
 const { plot } = require('asciichart');
 const { valueDate } = require('./assetsvalue.js');
+const { beginDateInPlottableDomain } = require('./helpers.js');
 const { DateTime } = require('luxon');
 
 // # Index
@@ -35,7 +36,7 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
     }
   };
 
-  const correctedBeginDate = beginDate < valueDate(assetsValues[0]) ? valueDate(assetsValues[0]) : beginDate;
+  const correctedBeginDate = beginDateInPlottableDomain(assetsValues, beginDate);
 
   return plot(
     (startIndex => selectIndexValues(timeStep(correctedBeginDate, endDate, maxColumns > 14 ? maxColumns - 14 : 1))
