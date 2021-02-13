@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "asciichart": "^1.5.25",
-    "luxon": "^1.25.0"
+    "luxon": "^1.25.0",
+    "numeraljs": "^1.5.6"
   }
 }
