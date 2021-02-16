@@ -1,7 +1,10 @@
 // Copyright (c) Adrien Cransac
 // License: No license
 
+const { valueDate } = require('./assetsvalue.js');
 const { dateInPlottableDomain, predecessorIdInIndex } = require('./helpers.js');
+const { DateTime } = require('luxon');
+const table = require('markdown-table');
 const numeral = require('numeral');
 
 /*
@@ -34,6 +37,30 @@ function indexHighlights(assetsValues, index, beginDate, endDate) {
   ].join("\n");
 }
 
+/*
+ * Log index values that are within the specified interval
+ * @param {AssetsValue[]} assetsValues - The assets values associated with the index
+ * @param {number[]} index - The index sequence
+ * @param {Date} beginDate - The beginning of the time interval specified by the user
+ * @param {Date} endDate - The end of the time interval specified by the user
+ * @return {string}
+ */
+function indexHistory(assetsValues, index, beginDate, endDate) {
+  const indexBeginId = predecessorIdInIndex(assetsValues, dateInPlottableDomain(assetsValues, beginDate));
+
+  const indexEndId = predecessorIdInIndex(assetsValues, endDate);
+
+  return table([
+    ["Date", "Index Value"],
+    ...index.slice(indexBeginId, indexEndId + 1)
+            .map((index, id) => {
+                   return [DateTime.fromJSDate(valueDate(assetsValues[indexBeginId + id])).toLocaleString(DateTime.DATE_MED),
+                           numeral(index).format("0.00")]
+                 })
+  ]);
+}
+
 module.exports = {
-  indexHighlights
+  indexHighlights,
+  indexHistory
 };
