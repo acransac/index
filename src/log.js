@@ -17,7 +17,7 @@ function indexHighlights(assetsValues, index, beginDate, endDate) {
 
   const indexEndId = predecessorIdInIndex(assetsValues, endDate);
 
-  const [min, max] = index.slice(indexBeginId, indexEndId)
+  const [min, max] = index.slice(indexBeginId, indexEndId + 1)
                           .reduce(([min, max], indexValue) => [min > indexValue ? indexValue : min,
                                                                max < indexValue ? indexValue : max],
                                   [index[indexBeginId], index[indexBeginId]]);
