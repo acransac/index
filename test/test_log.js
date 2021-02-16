@@ -14,11 +14,13 @@ function test_logIndexHighlightsIntervalsMatch(finish, check) {
   ];
 
   const control = [
-    "Begin:          100.00",
-    "End:            150.00",
-    "Min:            100.00",
-    "Max:            200.00",
-    "Last Variation: -50.00 (-25.00%)",
+    "| Highlights     | Value            |",
+    "| -------------- | ---------------- |",
+    "| Begin          | 100.00           |",
+    "| End            | 150.00           |",
+    "| Min            | 100.00           |",
+    "| Max            | 200.00           |",
+    "| Last Variation | -50.00 (-25.00%) |"
   ].join("\n");
 
   return finish(check(
@@ -33,11 +35,13 @@ function test_logIndexHighlightsIntervalsDontMatch(finish, check) {
   ];
 
   const control = [
-    "Begin:          200.00",
-    "End:            150.00",
-    "Min:            150.00",
-    "Max:            200.00",
-    "Last Variation: -50.00 (-25.00%)",
+    "| Highlights     | Value            |",
+    "| -------------- | ---------------- |",
+    "| Begin          | 200.00           |",
+    "| End            | 150.00           |",
+    "| Min            | 150.00           |",
+    "| Max            | 200.00           |",
+    "| Last Variation | -50.00 (-25.00%) |"
   ].join("\n");
 
   return finish(check(

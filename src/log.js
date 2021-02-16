@@ -28,13 +28,14 @@ function indexHighlights(assetsValues, index, beginDate, endDate) {
   const [lastVariation, lastVariationInPercentage] = 
     (lastVariation => [lastVariation, lastVariation / index[indexEndId - 1]])(index[indexEndId] - index[indexEndId - 1]);
 
-  return [
-    `Begin:          ${numeral(index[indexBeginId]).format("0.00")}`,
-    `End:            ${numeral(index[indexEndId]).format("0.00")}`,
-    `Min:            ${numeral(min).format("0.00")}`,
-    `Max:            ${numeral(max).format("0.00")}`,
-    `Last Variation: ${numeral(lastVariation).format("+0.00")} (${numeral(lastVariationInPercentage).format("+0.00%")})`
-  ].join("\n");
+  return table([
+    ["Highlights", "Value"],
+    ["Begin", `${numeral(index[indexBeginId]).format("0.00")}`],
+    ["End", `${numeral(index[indexEndId]).format("0.00")}`],
+    ["Min", `${numeral(min).format("0.00")}`],
+    ["Max", `${numeral(max).format("0.00")}`],
+    ["Last Variation", `${numeral(lastVariation).format("+0.00")} (${numeral(lastVariationInPercentage).format("+0.00%")})`]
+  ]);
 }
 
 /*
