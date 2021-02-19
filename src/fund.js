@@ -7,6 +7,11 @@ function makeFund(fundName, currency, assetsValues) {
   return [fundName, currency, assetsValues];
 }
 
+/*
+ * Get the fund's name
+ * @param {Fund} fund - The fund
+ * @return {string}
+ */
 function fundName(fund) {
   return fund[0];
 }
@@ -37,5 +42,6 @@ function readFundsFromJson(jsonString) {
 
 module.exports = {
   assetsValues,
+  fundName,
   readFundsFromJson
 };
