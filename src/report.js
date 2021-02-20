@@ -27,12 +27,18 @@ function reportOnFunds(funds, beginDate, endDate, plotWidth, plotHeight) {
 
       return [
         `## ${indexName}`,
+        "",
         plotIndex(assetsValues(fund), index, beginDate, endDate, plotWidth, plotHeight),
         plotTimeline(beginDate, endDate, plotWidth, 13),
+        "",
         "### Highlights",
+        "",
         indexHighlights(assetsValues(fund), index, beginDate, endDate),
+        "",
         "### History",
-        indexHistory(assetsValues(fund), index, beginDate, endDate)
+        "",
+        indexHistory(assetsValues(fund), index, beginDate, endDate),
+        ""
       ].join("\n");
     })
   ].join("\n")).join("\n");
