@@ -23,6 +23,7 @@
     "asciichart": "^1.5.25",
     "luxon": "^1.25.0",
     "markdown-table": "^2.0.0",
-    "numeral": "^2.0.6"
+    "numeral": "^2.0.6",
+    "yargs": "^16.2.0"
   }
 }
