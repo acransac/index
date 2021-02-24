@@ -63,7 +63,7 @@ const yargs = require('yargs/yargs');
   try {
     return (funds => {
       return console.log(reportOnFunds(funds, argv.begin, argv.end, argv.width, argv.height));
-    })(readFundsFromJson(readFileSync(argv._[0], {encoding: "utf-8"})));
+    })(readFundsFromJson(readFileSync(argv._.length > 0 ? argv._[0] : process.stdin.fd, {encoding: "utf-8"})));
   }
   catch (error) {
     return console.log(`${error.name}: ${error.message}`);
