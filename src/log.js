@@ -5,7 +5,7 @@ const { valueDate } = require('./assetsvalue.js');
 const { dateInPlottableDomain, predecessorIdInIndex } = require('./helpers.js');
 const { DateTime } = require('luxon');
 const table = require('markdown-table');
-const numeral = require('numeral');
+const numbro = require('numbro');
 
 /*
  * Log information about an index over a specified time interval: its value at the beginning and the end of the interval, its maximum and minimum values over that interval and the variation observed from the penultimate to the last records in this interval
@@ -30,11 +30,12 @@ function indexHighlights(assetsValues, index, beginDate, endDate) {
 
   return table([
     ["Highlights", "Value"],
-    ["Begin", `${numeral(index[indexBeginId]).format("0.00")}`],
-    ["End", `${numeral(index[indexEndId]).format("0.00")}`],
-    ["Min", `${numeral(min).format("0.00")}`],
-    ["Max", `${numeral(max).format("0.00")}`],
-    ["Last Variation", `${numeral(lastVariation).format("+0.00")} (${numeral(lastVariationInPercentage).format("+0.00%")})`]
+    ["Begin", `${numbro(index[indexBeginId]).format({mantissa: 2})}`],
+    ["End", `${numbro(index[indexEndId]).format({mantissa: 2})}`],
+    ["Min", `${numbro(min).format({mantissa: 2})}`],
+    ["Max", `${numbro(max).format({mantissa: 2})}`],
+    ["Last Variation",`${numbro(lastVariation).format({mantissa: 2, forceSign: true})} ` +
+                        `(${numbro(lastVariationInPercentage).format({mantissa: 2, forceSign: true, output: "percent"})})`]
   ]);
 }
 
@@ -56,7 +57,7 @@ function indexHistory(assetsValues, index, beginDate, endDate) {
     ...index.slice(indexBeginId, indexEndId + 1)
             .map((index, id) => {
                    return [DateTime.fromJSDate(valueDate(assetsValues[indexBeginId + id])).toLocaleString(DateTime.DATE_MED),
-                           numeral(index).format("0.00")]
+                           numbro(index).format({mantissa: 2})]
                  })
   ]);
 }
