@@ -14,12 +14,10 @@ function index(assetsValues) {
       return [100];
     }
     else {
-      return (previousValueAfterCash => {
-        return [
-          ...index,
-          index[id - 1] * (1 + ((valueBeforeAddedCash(assetsValue) - previousValueAfterCash) / previousValueAfterCash))
-        ]
-      })(valueAfterAddedCash(assetsValues[id - 1]));
+      return [
+        ...index,
+        index[id - 1] * valueBeforeAddedCash(assetsValue) / valueAfterAddedCash(assetsValues[id - 1])
+      ];
     }
   }, []);
 }
