@@ -27,6 +27,11 @@ function marketValue(assetsValue) {
   return assetsValue[1];
 }
 
+/*
+ * Get the added cash counting towards the market value of the assets at the associated date
+ * @param {AssetsValue} assetsValue - The assets value
+ * @return {number}
+ */
 function addedCash(assetsValue) {
   return assetsValue[2];
 }
@@ -61,6 +66,7 @@ function valueBeforeAddedCash(assetsValue) {
 }
 
 module.exports = {
+  addedCash,
   makeAssetsValue,
   readAssetsValuesFromJson,
   valueAfterAddedCash,
