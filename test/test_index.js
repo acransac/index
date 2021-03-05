@@ -8,8 +8,17 @@ const Test = require('@acransac/tester');
 
 // # Helpers
 
-function areArraysEqual(a, b) {
-  return a.length === b.length && a.filter((element, index) => element !== b[index]).length === 0;
+function areArraysEqual(a, b, tolerance) {
+  const areNear = (a, b) => {
+    if (typeof a === "number" && typeof b === "number") {
+      return Math.abs(a - b) <= (tolerance ? tolerance : 0);
+    }
+    else {
+      return a === b;
+    }
+  };
+
+  return a.length === b.length && a.filter((element, index) => !areNear(element, b[index])).length === 0;
 }
 
 // # Tests
@@ -55,12 +64,22 @@ function test_indexFromFundJson(finish, check) {
 
 // ## Return On Investment
 
-function test_returnOnInvestmentEmptyIndex(finish, check) {
+function test_returnOnInvestmentWithoutValue(finish, check) {
   return finish(check(areArraysEqual(returnOnInvestment([]), [])));
 }
 
-function test_returnOnInvestmentOneValueIndex(finish, check) {
-  return finish(check(areArraysEqual(returnOnInvestment([makeAssetsValue(new Date(2021, 0, 24), 1000.0, 1000.0)]), [0])));
+function test_returnOnInvestmentWithOneValue(finish, check) {
+  return finish(check(areArraysEqual(returnOnInvestment([makeAssetsValue(new Date(2020, 0, 1), 1000.0, 1000.0)]), [0])));
+}
+
+function test_returnOnInvestmentExample(finish, check) {
+  return finish(check(areArraysEqual(returnOnInvestment([makeAssetsValue(new Date(2020, 0, 1), 500.0, 500.0),
+                                                         makeAssetsValue(new Date(2020, 6, 1), 1050.0, 500.0),
+                                                         makeAssetsValue(new Date(2021, 0, 1), 1100.0, 0.0),
+                                                         makeAssetsValue(new Date(2021, 6, 1), 1000.0, -100.0),
+                                                         makeAssetsValue(new Date(2022, 0, 1), 900.0, 0.0)]),
+                                     [0, 10, 10, 6.56, 0],
+                                     0.001)));
 }
 
 Test.run([
@@ -69,6 +88,7 @@ Test.run([
   Test.makeTest(test_indexWithoutAddedCash, "Index Without Added Cash"),
   Test.makeTest(test_indexWithAddedCash, "Index With Added Cash"),
   Test.makeTest(test_indexFromFundJson, "Index From Fund JSON"),
-  Test.makeTest(test_returnOnInvestmentEmptyIndex, "Return On Investment, Empty Index"),
-  Test.makeTest(test_returnOnInvestmentOneValueIndex, "Return On Investment, One-Value Index")
+  Test.makeTest(test_returnOnInvestmentWithoutValue, "Return On Investment Without Value"),
+  Test.makeTest(test_returnOnInvestmentWithOneValue, "Return On Investment With One Value"),
+  Test.makeTest(test_returnOnInvestmentExample, "Return On Investment Example")
 ], "Test Index");
