@@ -29,17 +29,21 @@ function index(assetsValues) {
  * @return {[number]}
  */
 function returnOnInvestment(assetsValues) {
-  const roi = (netIncome, investment, endDate) => {
-    return (duration => Math.pow(netIncome / investment, 365.25 / duration))
-             (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(valueDate(assetsValues[0])), "days").as("days"));
+  const roi = (returned, invested, endDate) => {
+    return (duration => 100 * (Math.pow(returned / invested, 1 / Math.max(1, duration)) - 1))
+             (DateTime.fromJSDate(endDate).diff(DateTime.fromJSDate(valueDate(assetsValues[0])), "days").as("years"));
   };
 
-  return assetsValues.reduce(([netIncome, investment, index], assetsValue) => {
-    return ((netIncome, investment) => [netIncome, investment, [...index, roi(netIncome + valueAfterAddedCash(assetsValue),
-                                                                              investment,
-                                                                              valueDate(assetsValue))]])
-             (netIncome - addedCash(assetsValue), addedCash(assetsValue) > 0 ? investment + addedCash(assetsValue)
-                                                                             : investment);
+  return assetsValues.reduce(([returned, invested, index], assetsValue, id) => {
+    if (id === 0) {
+      return [returned - Math.min(0, addedCash(assetsValue)), invested + Math.max(0, addedCash(assetsValue)), [...index, 0]];
+    }
+    else {
+      return (roi => [returned - Math.min(0, addedCash(assetsValue)),
+                      invested + Math.max(0, addedCash(assetsValue)),
+                      [...index, roi]])
+               (roi(returned + valueBeforeAddedCash(assetsValue), invested, valueDate(assetsValue)));
+    }
   }, [0, 0, []])[2];
 }
 
