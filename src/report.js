@@ -3,7 +3,7 @@
 
 const { valueDate } = require('./assetsvalue.js');
 const { assetsValues, fundName } = require('./fund.js');
-const { index } = require('./index.js');
+const { relativeMarketValue } = require('./index.js');
 const { indexHighlights, indexHistory } = require('./log.js');
 const { plotIndex, plotTimeline } = require('./plot.js');
 
@@ -18,7 +18,7 @@ const { plotIndex, plotTimeline } = require('./plot.js');
  */
 function reportOnFunds(funds, beginDate, endDate, plotWidth, plotHeight) {
   const indices = [
-    ["Relative Market Value", index]
+    ["Relative Market Value", relativeMarketValue]
   ];
 
   return funds.map(fund => {

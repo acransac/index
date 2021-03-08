@@ -2,7 +2,7 @@
 // License: No license
 
 const { makeAssetsValue } = require('../src/assetsvalue.js');
-const { index } = require('../src/index.js');
+const { relativeMarketValue } = require('../src/index.js');
 const { plotIndex, plotTimeline } = require('../src/plot.js');
 const Test = require('@acransac/tester');
 
@@ -30,7 +30,8 @@ function test_plotIntervalMatchesIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11) === control));
+    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
+      === control));
 }
 
 function test_plotIntervalEarlierThanIndex(finish, check) {
@@ -55,7 +56,8 @@ function test_plotIntervalEarlierThanIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 17, 11) === control));
+    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 17, 11)
+      === control));
 }
 
 function test_plotIntervalLaterThanIndex(finish, check) {
@@ -80,7 +82,8 @@ function test_plotIntervalLaterThanIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 17, 11) === control));
+    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 17, 11)
+      === control));
 }
 
 function test_plotIntervalWithinIndex(finish, check) {
@@ -107,7 +110,8 @@ function test_plotIntervalWithinIndex(finish, check) {
   ].join("\n");
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11) === control));
+    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
+      === control));
 }
 
 function test_plotHeight(finish, check) {
@@ -118,7 +122,7 @@ function test_plotHeight(finish, check) {
   ];
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 10)
+    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 10)
       .split("\n").length === 10));
 }
 
@@ -130,7 +134,7 @@ function test_plotWidthBiggerThanInterval(finish, check) {
   ];
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
+    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
       .split("\n").every(line => line.length <= 17)));
 }
 
@@ -142,7 +146,7 @@ function test_plotWidthSmallerThanInterval(finish, check) {
   ];
 
   return finish(check(
-    plotIndex(assetsValues, index(assetsValues), new Date(2021, 0, 24), new Date(2021, 1, 24), 17, 11)
+    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 1, 24), 17, 11)
       .split("\n").every(line => line.length <= 17)));
 }
 

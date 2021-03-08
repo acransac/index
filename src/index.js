@@ -5,11 +5,11 @@ const { addedCash, valueAfterAddedCash, valueBeforeAddedCash, valueDate } = requ
 const { DateTime } = require('luxon');
 
 /*
- * Compute the index series
+ * Compute the market value for each in a time series of a fund's valuations in proportion to the first. Cash flows do not move the index
  * @param {[AssetsValue]} assetsValues - The assets' values
  * @return {[number]}
  */
-function index(assetsValues) {
+function relativeMarketValue(assetsValues) {
   return assetsValues.reduce((index, assetsValue, id) => {
     if (id === 0) {
       return [100];
@@ -48,6 +48,6 @@ function returnOnInvestment(assetsValues) {
 }
 
 module.exports = {
-  index,
+  relativeMarketValue,
   returnOnInvestment
 };
