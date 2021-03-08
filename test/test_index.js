@@ -74,12 +74,12 @@ function test_returnOnInvestmentWithOneValue(finish, check) {
 
 function test_returnOnInvestmentExample(finish, check) {
   return finish(check(areArraysEqual(returnOnInvestment([makeAssetsValue(new Date(2020, 0, 1), 500.0, 500.0),
-                                                         makeAssetsValue(new Date(2020, 6, 1), 1050.0, 500.0),
-                                                         makeAssetsValue(new Date(2021, 0, 1), 1100.0, 0.0),
-                                                         makeAssetsValue(new Date(2021, 6, 1), 1000.0, -100.0),
-                                                         makeAssetsValue(new Date(2022, 0, 1), 900.0, 0.0)]),
-                                     [0, 10, 10, 6.56, 0],
-                                     0.001)));
+                                                         makeAssetsValue(new Date(2020, 6, 1), 1005.0, 500.0),
+                                                         makeAssetsValue(new Date(2021, 0, 1), 1010.0, 0.0),
+                                                         makeAssetsValue(new Date(2021, 6, 1), 1000.0, -10.0),
+                                                         makeAssetsValue(new Date(2022, 0, 1), 990.0, 0.0)]),
+                                     [0, 1, 1, 0.67, 0],
+                                     0.01)));
 }
 
 Test.run([
