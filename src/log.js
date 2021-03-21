@@ -26,7 +26,8 @@ function indexHighlights(assetsValues, index, beginDate, endDate) {
                                   [index[indexBeginId], index[indexBeginId]]);
 
   const [lastVariation, lastVariationInPercentage] = 
-    (lastVariation => [lastVariation, lastVariation / index[indexEndId - 1]])(index[indexEndId] - index[indexEndId - 1]);
+    (lastVariation => [lastVariation, lastVariation / Math.abs(index[indexEndId - 1])])
+      (index[indexEndId] - index[indexEndId - 1]);
 
   return table([
     ["Highlights", "Value"],
