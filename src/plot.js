@@ -52,11 +52,11 @@ function plotIndex(assetsValues, index, beginDate, endDate, maxColumns, rows) {
  * @param {Date} beginDate - The date from which the timeline is plotted
  * @param {Date} endDate - The date to which the timeline is plotted
  * @param {number} maxColumns - The maximum length of the timeline in printable columns (number of characters)
- * @param {number} offset - The length of the space to leave empty to the left of the timeline in printable columns (number of characters). Does not count towards maxColumns
+ * @param {number} offset - The length of the space to leave empty to the left of the timeline in printable columns (number of characters)
  * @return {string}
  */
 function plotTimeline(beginDate, endDate, maxColumns, offset) {
-  const timeIncrement = timeStep(beginDate, endDate, maxColumns - 1);
+  const timeIncrement = timeStep(beginDate, endDate, maxColumns - offset - 1);
 
   const plotArrow = availableWidth => new Array(availableWidth).fill("─").join("");
 

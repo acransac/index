@@ -182,7 +182,7 @@ function test_plotTimelineOffset(finish, check) {
     "    21 "
   ].join("\n");
 
-  return finish(check(plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 6, 2) === control));
+  return finish(check(plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 8, 2) === control));
 }
 
 Test.run([
