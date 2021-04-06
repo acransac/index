@@ -1,21 +1,26 @@
 {
-  "name": "indexjs",
+  "name": "@acransac/index",
   "version": "1.0.0",
-  "description": "Investments performance measurement utilities",
+  "description": "Print reports on the performance of investments",
   "main": "src/app.js",
   "scripts": {
     "test": "(cd test && node test_all.js)"
   },
+  "bin": {
+    "index": "src/app.js"
+  },
   "author": "Adrien Cransac",
-  "license": "No license",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "ssh://git-codecommit.eu-central-1.amazonaws.com/v1/repos/indexjs"
+    "url": "https://github.com/acransac/index.git"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/acransac/index/issues"
   },
-  "homepage": "https://git-codecommit.eu-central-1.amazonaws.com/v1/repos/indexjs",
+  "homepage": "https://github.com/acransac/index",
+  "keywords": [
+  ],
   "devDependencies": {
     "@acransac/tester": "^1.0.0"
   },
