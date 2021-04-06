@@ -25,7 +25,7 @@ function indexHighlights(assetsValues, index, beginDate, endDate) {
                                                                max < indexValue ? indexValue : max],
                                   [index[indexBeginId], index[indexBeginId]]);
 
-  const [lastVariation, lastVariationInPercentage] = 
+  const [lastVariation, lastVariationInPercentage] =
     (lastVariation => [lastVariation, lastVariation / Math.abs(index[indexEndId - 1])])
       (index[indexEndId] - index[indexEndId - 1]);
 
