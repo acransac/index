@@ -1,0 +1,21 @@
+[
+  {
+    "fundName": "S&P 500",
+    "currency": "USD",
+    "assetsValues": [
+      {"valueDate": "2020-01-01", "marketValue": 1000.00, "addedCash": 1000.00},
+      {"valueDate": "2020-02-01", "marketValue": 999.63, "addedCash": 0.00},
+      {"valueDate": "2020-03-01", "marketValue": 918.66, "addedCash": 0.00},
+      {"valueDate": "2020-04-01", "marketValue": 768.52, "addedCash": 0.00},
+      {"valueDate": "2020-05-01", "marketValue": 882.35, "addedCash": 0.00},
+      {"valueDate": "2020-06-01", "marketValue": 953.85, "addedCash": 0.00},
+      {"valueDate": "2020-07-01", "marketValue": 968.72, "addedCash": 0.00},
+      {"valueDate": "2020-08-01", "marketValue": 1023.37, "addedCash": 0.00},
+      {"valueDate": "2020-09-01", "marketValue": 1104.23, "addedCash": 0.00},
+      {"valueDate": "2020-10-01", "marketValue": 1055.48, "addedCash": 0.00},
+      {"valueDate": "2020-11-01", "marketValue": 1026.84, "addedCash": 0.00},
+      {"valueDate": "2020-12-01", "marketValue": 1150.17, "addedCash": 0.00},
+      {"valueDate": "2021-01-01", "marketValue": 1179.83, "addedCash": 0.00}
+    ]
+  }
+]
