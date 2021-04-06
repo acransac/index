@@ -1,5 +1,5 @@
 // Copyright (c) Adrien Cransac
-// License: No license
+// License: MIT
 
 const { makeAssetsValue } = require('../src/assetsvalue.js');
 const { assetsValues, readFundsFromJson } = require('../src/fund.js');

@@ -1,5 +1,5 @@
 // Copyright (c) Adrien Cransac
-// License: No license
+// License: MIT
 
 const { valueDate } = require('./assetsvalue.js');
 const { dateInPlottableDomain, predecessorIdInIndex } = require('./helpers.js');

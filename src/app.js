@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Copyright (c) Adrien Cransac
-// License: No license
+// License: MIT
 
 const { readFileSync } = require('fs');
 const { readFundsFromJson } = require('./fund.js');

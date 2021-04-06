@@ -1,5 +1,5 @@
 // Copyright (c) Adrien Cransac
-// License: No license
+// License: MIT
 
 const { readFundsFromJson } = require('../src/fund.js');
 const { reportOnFunds } = require('../src/report.js');

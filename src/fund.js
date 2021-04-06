@@ -1,5 +1,5 @@
 // Copyright (c) Adrien Cransac
-// License: No license
+// License: MIT
 
 const { readAssetsValuesFromJson } = require('./assetsvalue.js');
 

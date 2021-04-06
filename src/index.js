@@ -1,5 +1,5 @@
 // Copyright (c) Adrien Cransac
-// License: No license
+// License: MIT
 
 const { addedCash, valueAfterAddedCash, valueBeforeAddedCash, valueDate } = require('./assetsvalue.js');
 const { DateTime } = require('luxon');
