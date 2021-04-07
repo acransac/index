@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/acransac/index",
   "keywords": [
+    "personal-finance"
   ],
   "devDependencies": {
     "@acransac/tester": "^1.0.0"
