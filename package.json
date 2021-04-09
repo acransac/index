@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "asciichart": "^1.5.25",
+    "decimal.js-light": "^2.5.1",
     "luxon": "^1.25.0",
     "markdown-table": "^2.0.0",
     "numbro": "^2.3.2",
