@@ -5,7 +5,7 @@
 
 The input to the program is user-provided json data describing the investments, notably with a time series of market values and cash flows. The user chooses the time interval to report on. The output is meant to be easily printable and readable in a terminal (even the graphs) and is formatted as Markdown.
 
-See for example [here](docs/example.md), the performance of an investment of USD1000.00 in Vanguard's exchange-traded fund VOO (that tracks the S&P500 index) over 2020 as output by **index**.
+See for example [here](https://acransac.github.io/index-example), the performance of an investment of USD1000.00 in Vanguard's exchange-traded fund VOO (that tracks the S&P500 index) over 2020 as output by **index**.
 
 # Installation
 **index** is delivered as a npm package and is more convenient to use if installed globally:
@@ -78,7 +78,7 @@ You provide the input to the program by either piping the json data in or indica
   * the time interval to report on. You can specify a begin date and / or an end date. If you don't, the earliest and / or the latest valuations' dates are used. The format is YYYY-MM-DD. Note that this interval has no impact on the computation of the indices, it just focuses the reports on the given time period.
   * the dimensions of the charts, height and width. The former is only for comfort of reading but the latter has an impact on the accuracy. Indeed, the charts are just printed characters so that every printed column covers a fixed slice of the choosen time interval. Increasing the width, that is the number of columns, allows the latter to cover smaller amounts of time hence revealing patterns of shorter terms.
 
-Try it out, print [the introduction's example](docs/example.md) with:
+Try it out, print [the introduction's example](https://acransac.github.io/index-example) with:
 
 ```shell
     $ cat docs/example.json | index
