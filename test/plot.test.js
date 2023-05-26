@@ -4,11 +4,10 @@
 const { makeAssetsValue } = require('../src/assetsvalue.js');
 const { relativeMarketValue } = require('../src/index.js');
 const { plotIndex, plotTimeline } = require('../src/plot.js');
-const Test = require('@acransac/tester');
 
 // # Index
 
-function test_plotIntervalMatchesIndex(finish, check) {
+test("Plot Interval Matches Index", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
@@ -29,12 +28,17 @@ function test_plotIntervalMatchesIndex(finish, check) {
     "     100.00 ┼╯  "
   ].join("\n");
 
-  return finish(check(
-    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
-      === control));
-}
+  expect(plotIndex(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 24),
+    new Date(2021, 0, 26),
+    17,
+    11))
+    .toBe(control);
+});
 
-function test_plotIntervalEarlierThanIndex(finish, check) {
+test("Plot Interval Earlier Than Index", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
@@ -55,12 +59,17 @@ function test_plotIntervalEarlierThanIndex(finish, check) {
     "     100.00 ┼╯ "
   ].join("\n");
 
-  return finish(check(
-    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 23), new Date(2021, 0, 25), 17, 11)
-      === control));
-}
+  expect(plotIndex(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 23),
+    new Date(2021, 0, 25),
+    17,
+    11))
+    .toBe(control);
+});
 
-function test_plotIntervalLaterThanIndex(finish, check) {
+test("Plot Interval Later Than Index", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
@@ -81,12 +90,17 @@ function test_plotIntervalLaterThanIndex(finish, check) {
     "     150.00 ┤╰─ "
   ].join("\n");
 
-  return finish(check(
-    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27), 17, 11)
-      === control));
-}
+  expect(plotIndex(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 25),
+    new Date(2021, 0, 27),
+    17,
+    11))
+    .toBe(control);
+});
 
-function test_plotIntervalWithinIndex(finish, check) {
+test("Plot Interval Within Index", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 23), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 24), 1500.0, 0.0),
@@ -109,50 +123,73 @@ function test_plotIntervalWithinIndex(finish, check) {
     "     150.00 ┼╯╰ "
   ].join("\n");
 
-  return finish(check(
-    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
-      === control));
-}
+  expect(plotIndex(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 24),
+    new Date(2021, 0, 26),
+    17,
+    11))
+    .toBe(control);
+});
 
-function test_plotHeight(finish, check) {
+test("Plot Height", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 26), 1500.0, 0.0)
   ];
 
-  return finish(check(
-    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 10)
-      .split("\n").length === 10));
-}
+  expect(plotIndex(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 24),
+    new Date(2021, 0, 26),
+    17,
+    10)
+    .split("\n").length)
+    .toBe(10);
+});
 
-function test_plotWidthBiggerThanInterval(finish, check) {
+test("Plot Width Bigger Than Interval", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 26), 1500.0, 0.0)
   ];
 
-  return finish(check(
-    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26), 17, 11)
-      .split("\n").every(line => line.length <= 17)));
-}
+  expect(plotIndex(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 24),
+    new Date(2021, 0, 26),
+    17,
+    11)
+    .split("\n").every(line => line.length <= 17))
+    .toBe(true);
+});
 
-function test_plotWidthSmallerThanInterval(finish, check) {
+test("Plot Width Smaller Than Interval", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 1, 10), 2000.0, 0.0),
     makeAssetsValue(new Date(2021, 1, 24), 1500.0, 0.0)
   ];
 
-  return finish(check(
-    plotIndex(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 1, 24), 17, 11)
-      .split("\n").every(line => line.length <= 17)));
-}
+  expect(plotIndex(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 24),
+    new Date(2021, 1, 24),
+    17,
+    11)
+    .split("\n").every(line => line.length <= 17))
+    .toBe(true);
+});
 
 // # Timeline
 
-function test_plotTimeline(finish, check) {
+test("Plot Timeline", () => {
   const control1 = [
     "─────>",
     "D Jan",
@@ -165,35 +202,23 @@ function test_plotTimeline(finish, check) {
     "2020 21 "
   ].join("\n");
 
-  return finish(check(
-    plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 6, 0) === control1
-      && plotTimeline(new Date(2020, 7, 1), new Date(2021, 3, 6), 9, 0) === control2));
-}
+  expect(plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 6, 0)).toBe(control1);
 
-function test_plotTimelineWidth(finish, check) {
-  return finish(check(
-    plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 5, 0).split("\n").every(line => line.length <= 5)));
-}
+  expect(plotTimeline(new Date(2020, 7, 1), new Date(2021, 3, 6), 9, 0)).toBe(control2);
+});
 
-function test_plotTimelineOffset(finish, check) {
+test("Plot Timeline Width", () => {
+  expect(plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 5, 0)
+    .split("\n").every(line => line.length <= 5))
+    .toBe(true);
+});
+
+test("Plot Timeline Offset", () => {
   const control = [
     "  ─────>",
     "  D Jan",
     "    21 "
   ].join("\n");
 
-  return finish(check(plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 8, 2) === control));
-}
-
-Test.run([
-  Test.makeTest(test_plotIntervalMatchesIndex, "Plot Interval Matches Index"),
-  Test.makeTest(test_plotIntervalEarlierThanIndex, "Plot Interval Earlier Than Index"),
-  Test.makeTest(test_plotIntervalLaterThanIndex, "Plot Interval Later Than Index"),
-  Test.makeTest(test_plotIntervalWithinIndex, "Plot Interval Within Index"),
-  Test.makeTest(test_plotHeight, "Plot Height"),
-  Test.makeTest(test_plotWidthBiggerThanInterval, "Plot Width Bigger Than Interval"),
-  Test.makeTest(test_plotWidthSmallerThanInterval, "Plot Width Smaller Than Interval"),
-  Test.makeTest(test_plotTimeline, "Plot Timeline"),
-  Test.makeTest(test_plotTimelineWidth, "Plot Timeline Width"),
-  Test.makeTest(test_plotTimelineOffset, "Plot Timeline Offset")
-], "Test Plot");
+  expect(plotTimeline(new Date(2020, 11, 30), new Date(2021, 0, 4), 8, 2)).toBe(control);
+});
