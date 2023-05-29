@@ -4,9 +4,8 @@
 const { makeAssetsValue } = require('../src/assetsvalue.js');
 const { relativeMarketValue } = require('../src/index.js');
 const { indexHighlights, indexHistory } = require('../src/log.js');
-const Test = require('@acransac/tester');
 
-function test_logIndexHighlightsIntervalsMatch(finish, check) {
+test("Log Index Highlights When Intervals Match", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
@@ -23,12 +22,15 @@ function test_logIndexHighlightsIntervalsMatch(finish, check) {
     "| Last Variation | -50.00 (-25.00%) |"
   ].join("\n");
 
-  return finish(check(
-    indexHighlights(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26))
-      === control));
-}
+  expect(indexHighlights(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 24),
+    new Date(2021, 0, 26)))
+    .toBe(control);
+});
 
-function test_logIndexHighlightsIntervalsDontMatch(finish, check) {
+test("Log Index Highlights When Intervals Don't Match", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
@@ -45,12 +47,15 @@ function test_logIndexHighlightsIntervalsDontMatch(finish, check) {
     "| Last Variation | -50.00 (-25.00%) |"
   ].join("\n");
 
-  return finish(check(
-    indexHighlights(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27))
-      === control));
-}
+  expect(indexHighlights(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 25),
+    new Date(2021, 0, 27)))
+    .toBe(control);
+});
 
-function test_logIndexHistoryIntervalsMatch(finish, check) {
+test("Log Index History When Intervals Match", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
@@ -65,11 +70,15 @@ function test_logIndexHistoryIntervalsMatch(finish, check) {
     "| Jan 26, 2021 | 150.00      |"
   ].join("\n");
 
-  return finish(check(
-    indexHistory(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 24), new Date(2021, 0, 26)) === control));
-}
+  expect(indexHistory(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 24),
+    new Date(2021, 0, 26)))
+    .toBe(control);
+});
 
-function test_logIndexHistoryIntervalsDontMatch(finish, check) {
+test("Log Index History When Intervals Don't Match", () => {
   const assetsValues = [
     makeAssetsValue(new Date(2021, 0, 24), 1000.0, 0.0),
     makeAssetsValue(new Date(2021, 0, 25), 2000.0, 0.0),
@@ -83,13 +92,10 @@ function test_logIndexHistoryIntervalsDontMatch(finish, check) {
     "| Jan 26, 2021 | 150.00      |"
   ].join("\n");
 
-  return finish(check(
-    indexHistory(assetsValues, relativeMarketValue(assetsValues), new Date(2021, 0, 25), new Date(2021, 0, 27)) === control));
-}
-
-Test.run([
-  Test.makeTest(test_logIndexHighlightsIntervalsMatch, "Log Index Highlights When Intervals Match"),
-  Test.makeTest(test_logIndexHighlightsIntervalsDontMatch, "Log Index Highlights When Intervals Don't Match"),
-  Test.makeTest(test_logIndexHistoryIntervalsMatch, "Log Index History When Intervals Match"),
-  Test.makeTest(test_logIndexHistoryIntervalsDontMatch, "Log Index History When Intervals Don't Match")
-], "Test Log");
+  expect(indexHistory(
+    assetsValues,
+    relativeMarketValue(assetsValues),
+    new Date(2021, 0, 25),
+    new Date(2021, 0, 27)))
+    .toBe(control);
+});

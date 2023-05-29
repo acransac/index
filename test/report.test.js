@@ -3,7 +3,6 @@
 
 const { readFundsFromJson } = require('../src/fund.js');
 const { reportOnFunds } = require('../src/report.js');
-const Test = require('@acransac/tester');
 
 // # Helpers
 
@@ -195,17 +194,22 @@ function testFunds() {
 
 // # Tests
 
-function test_reportOnFunds(finish, check) {
-  return finish(check(
-    reportOnFunds(readFundsFromJson(testFunds()), new Date(2021, 0, 24), new Date(2021, 0, 26), 120, 15) === control()));
-}
+test("Report On Funds", () => {
+  expect(reportOnFunds(
+    readFundsFromJson(testFunds()),
+    new Date(2021, 0, 24),
+    new Date(2021, 0, 26),
+    120,
+    15))
+    .toBe(control());
+});
 
-function test_reportOnFundsUnspecifiedInterval(finish, check) {
-  return finish(check(
-    reportOnFunds(readFundsFromJson(testFunds()), undefined, undefined, 120, 15) === control()));
-}
-
-Test.run([
-  Test.makeTest(test_reportOnFunds, "Report On Funds"),
-  Test.makeTest(test_reportOnFundsUnspecifiedInterval, "Report On Funds With Unspecified Interval")
-], "Test Report");
+test("Report On Funds With Unspecified Interval", () => {
+  expect(reportOnFunds(
+    readFundsFromJson(testFunds()),
+    undefined,
+    undefined,
+    120,
+    15))
+    .toBe(control());
+});
