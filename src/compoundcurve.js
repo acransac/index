@@ -1,3 +1,6 @@
+// Copyright (c) Adrien Cransac
+// License: MIT
+
 const { Interval } = require('luxon');
 
 /*
@@ -13,20 +16,23 @@ function CompoundCurve(rates) {
       const checkedInterval = Interval.fromISO(interval);
 
       if (!checkedInterval.isValid) {
-        throw `invalid compound curve. The following is not a valid ISO time interval: ${interval}`;
+        throw new Error(
+          `invalid compound curve. The following is not a valid ISO time interval: ${interval}`);
       }
       else if (isNaN(rate)) {
-        throw `invalid compound curve. The following is not a valid rate: ${rate}`;
+        throw new Error(
+          `invalid compound curve. The following is not a valid rate: ${rate}`);
       }
       else {
         return [checkedInterval, rate];
       }
     })
-    .sort((intervalA, intervalB) => intervalB.isAfter(intervalA.start) ? 1 : -1);
+    .sort(([intervalA, rateA], [intervalB, rateB]) => intervalB.isAfter(intervalA.start) ? 1 : -1);
 
   if (!curve.slice(-1).every(([interval, rate], id) => curve[id + 1][0].abutsStart(interval))) {
-    throw "invalid compound curve. The rates' time intervals are not disjoint and / or covering a "
-      + "continuous period of time";
+    throw new Error(
+      "invalid compound curve. The rates' time intervals are not disjoint and / or covering a "
+        + "continuous period of time");
   }
 
   /*
