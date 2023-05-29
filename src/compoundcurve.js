@@ -1,7 +1,7 @@
 // Copyright (c) Adrien Cransac
 // License: MIT
 
-const { Interval } = require('luxon');
+const { DateTime, Interval } = require('luxon');
 
 /*
  * Make a compound operator variable over time
@@ -27,9 +27,9 @@ function CompoundCurve(rates) {
         return [checkedInterval, rate];
       }
     })
-    .sort(([intervalA, rateA], [intervalB, rateB]) => intervalB.isAfter(intervalA.start) ? 1 : -1);
+    .sort(([intervalA, rateA], [intervalB, rateB]) => intervalB.isAfter(intervalA.start) ? -1 : 1);
 
-  if (!curve.slice(-1).every(([interval, rate], id) => curve[id + 1][0].abutsStart(interval))) {
+  if (!curve.slice(0, -1).every(([interval, rate], id) => curve[id + 1][0].abutsEnd(interval))) {
     throw new Error(
       "invalid compound curve. The rates' time intervals are not disjoint and / or covering a "
         + "continuous period of time");
@@ -45,7 +45,7 @@ function CompoundCurve(rates) {
   };
 
   /*
-   * Make a new compound curve covering a sub-interval of the current one
+   * Make a new compound operator covering a sub-interval of the current one
    * @param {string} startDate - The start date of the sub-interval as an ISO string. It should be
    *   later than the start date of the current compound curve
    * @param {string} endDate - The end date of the sub-interval as an ISO string. It should be
@@ -53,6 +53,17 @@ function CompoundCurve(rates) {
    * @return {CompoundCurve}
    */
   this.slice = (startDate, endDate) => {
+    if (DateTime.fromISO(startDate) < curve[0][0].start) {
+      throw new Error(
+        "can't slice compound curve. The slice's start date is earlier than the curve's time "
+          + "interval");
+    }
+    else if (DateTime.fromISO(endDate) > curve.at(-1)[0].end) {
+      throw new Error(
+        "can't slice compound curve. The slice's end date is later than the curve's time interval");
+    }
+    else {
+    }
   };
 }
 
