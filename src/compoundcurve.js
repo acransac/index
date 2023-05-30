@@ -53,16 +53,53 @@ function CompoundCurve(rates) {
    * @return {CompoundCurve}
    */
   this.slice = (startDate, endDate) => {
-    if (DateTime.fromISO(startDate) < curve[0][0].start) {
+    const start = DateTime.fromISO(startDate);
+
+    const end = DateTime.fromISO(endDate);
+
+    if (start < curve[0][0].start) {
       throw new Error(
         "can't slice compound curve. The slice's start date is earlier than the curve's time "
           + "interval");
     }
-    else if (DateTime.fromISO(endDate) > curve.at(-1)[0].end) {
+    else if (end > curve.at(-1)[0].end) {
       throw new Error(
         "can't slice compound curve. The slice's end date is later than the curve's time interval");
     }
     else {
+      const cutCurve = (date, isAfterCut) => {
+        const intervalId = curve.findIndex(
+          ([interval, rate]) => interval.contains(date) || interval.end.equals(date));
+
+        return [
+          [
+            curve[intervalId][0].splitAt(date)[isAfterCut ? 1 : 0].toISODate(),
+            curve[intervalId][1]
+          ],
+          intervalId
+        ];
+      };
+
+      const [firstInterval, firstIntervalId] = cutCurve(start, true);
+
+      const [lastInterval, lastIntervalId] = cutCurve(end, false);
+
+      if (firstIntervalId === lastIntervalId) {
+        return new CompoundCurve([
+          [
+            curve[firstIntervalId][0].splitAt(start, end)[1].toISODate(),
+            curve[firstIntervalId][1]
+          ]
+        ]);
+      }
+      else {
+        return new CompoundCurve([
+          firstInterval,
+          ...curve.slice(firstIntervalId + 1, lastIntervalId).map(([interval, rate]) =>
+            [interval.toISODate(), rate]),
+          lastInterval
+        ]);
+      }
     }
   };
 }
