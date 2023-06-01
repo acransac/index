@@ -1,6 +1,7 @@
 // Copyright (c) Adrien Cransac
 // License: MIT
 
+const Decimal = require('decimal.js-light');
 const { DateTime, Interval } = require('luxon');
 
 /*
@@ -42,6 +43,17 @@ function CompoundCurve(rates) {
    * @return {number}
    */
   this.compound = cashFlowValue => {
+    if (isNaN(cashFlowValue)) {
+      throw new Error(
+        "can't compound cash flow value. The following is not a valid cash flow value: "
+          + `${cashFlowValue}`);
+    }
+    else {
+      return new Decimal(cashFlowValue)
+        .times(curve.reduce((multiplier, [interval, rate]) =>
+          multiplier.times(new Decimal(rate).toPower(interval.length("years"))), new Decimal(1.0)))
+        .toNumber();
+    }
   };
 
   /*

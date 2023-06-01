@@ -55,3 +55,25 @@ test("Fail To Slice After Curve Interval", () => {
     .toThrow(new Error("can't slice compound curve. The slice's end date is later than the curve's "
       + "time interval"));
 });
+
+test("Fail To Compound Invalid Cash Flow Value", () => {
+  expect(() => new CompoundCurve([["2023-05-01/2023-06-01", 1.0]]).compound("abc"))
+    .toThrow(new Error("can't compound cash flow value. The following is not a valid cash flow "
+      + "value: abc"));
+});
+
+test("Identity Compound", () => {
+  expect(new CompoundCurve([["2023-05-01/2023-06-01", 1.0]]).compound(100.0)).toBe(100.0);
+});
+
+test("Constant Compound", () => {
+  expect(new CompoundCurve([["2022-01-01/2023-01-01", 1.10]]).compound(100.0)).toBe(110.0);
+});
+
+test("Variable Compound", () => {
+  expect(new CompoundCurve([
+    ["2022-01-01/2022-05-01", 1.10],
+    ["2022-05-01/2022-08-29", 1.05],
+    ["2022-08-29/2023-01-01", 1.20],
+  ]).compound(100.0)).toBeCloseTo(111.6070846940785);
+});
