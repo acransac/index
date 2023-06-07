@@ -80,12 +80,12 @@ function CompoundCurve(rates) {
     }
     else {
       const cutCurve = (date, isAfterCut) => {
-        const intervalId = curve.findIndex(
-          ([interval, rate]) => interval.contains(date) || interval.end.equals(date));
+        const intervalId = curve.findIndex(([interval, rate]) =>
+          interval.contains(date) || (!isAfterCut && interval.end.equals(date)));
 
         return [
           [
-            curve[intervalId][0].splitAt(date)[isAfterCut ? 1 : 0].toISODate(),
+            curve[intervalId][0].splitAt(date).at(isAfterCut ? -1 : 0).toISODate(),
             curve[intervalId][1]
           ],
           intervalId
@@ -96,7 +96,7 @@ function CompoundCurve(rates) {
 
       const [lastInterval, lastIntervalId] = cutCurve(end, false);
 
-      if (firstIntervalId === lastIntervalId) {
+      if (firstIntervalId === lastIntervalId || start.equals(end)) {
         return new CompoundCurve([
           [
             curve[firstIntervalId][0].splitAt(start, end)[1].toISODate(),

@@ -64,7 +64,7 @@ test("Return On Investment With One Assets Value", () => {
     .toEqual([0]);
 });
 
-test("Return On Investment Example", () => {
+test("Return On Investment With Neutral Time Value Of Cash Flows", () => {
   const control = [0, 1, 1, 0.67, 0];
 
   const test = returnOnInvestment(
@@ -76,6 +76,29 @@ test("Return On Investment Example", () => {
       makeAssetsValue(new Date(2022, 0, 1), 990.0, 0.0)
     ],
     new CompoundCurve([["2020-01-01/2024-01-01", 1.00]]));
+
+  expect(test).toBeInstanceOf(Array);
+
+  expect(test.length).toBe(control.length);
+
+  test.forEach((indexValue, id) => expect(indexValue).toBeCloseTo(control[id]));
+});
+
+test("Return On Investment With Non-Neutral Time Value Of Cash Flows", () => {
+  const control = [0, 0.50, 0, -0.65, -1.71];
+
+  const test = returnOnInvestment(
+    [
+      makeAssetsValue(new Date(2020, 0, 1), 500.0, 500.0),
+      makeAssetsValue(new Date(2020, 6, 1), 1005.0, 500.0),
+      makeAssetsValue(new Date(2021, 0, 1), 1010.0, 0.0),
+      makeAssetsValue(new Date(2021, 6, 1), 1000.0, -10.0),
+      makeAssetsValue(new Date(2022, 0, 1), 990.0, 0.0)
+    ],
+    new CompoundCurve([
+      ["2020-01-01/2020-10-01", 1.01],
+      ["2020-10-01/2021-07-01", 1.02],
+      ["2021-07-01/2024-01-01", 1.03]]));
 
   expect(test).toBeInstanceOf(Array);
 
