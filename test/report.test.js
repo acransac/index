@@ -1,6 +1,7 @@
 // Copyright (c) Adrien Cransac
 // License: MIT
 
+const { CompoundCurve } = require('../src/compoundcurve.js');
 const { readFundsFromJson } = require('../src/fund.js');
 const { reportOnFunds } = require('../src/report.js');
 
@@ -199,6 +200,7 @@ test("Report On Funds", () => {
     readFundsFromJson(testFunds()),
     new Date(2021, 0, 24),
     new Date(2021, 0, 26),
+    new CompoundCurve([["2021-01-01/2021-02-01", 1.00]]),
     120,
     15))
     .toBe(control());
@@ -209,6 +211,7 @@ test("Report On Funds With Unspecified Interval", () => {
     readFundsFromJson(testFunds()),
     undefined,
     undefined,
+    new CompoundCurve([["2021-01-01/2021-02-01", 1.00]]),
     120,
     15))
     .toBe(control());
