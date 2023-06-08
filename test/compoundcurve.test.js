@@ -1,7 +1,8 @@
 // Copyright (c) Adrien Cransac
 // License: MIT
 
-const { CompoundCurve } = require('../src/compoundcurve.js');
+const { CompoundCurve, readCompoundCurveFromJson } = require('../src/compoundcurve.js');
+const { readFundsFromJson } = require('../src/fund.js');
 
 test("Fail To Construct If Invalid Interval", () => {
   expect(() => new CompoundCurve([
@@ -84,4 +85,15 @@ test("Slice Then Compound", () => {
     ["2022-05-01/2022-08-29", 1.05],
     ["2022-08-29/2023-01-01", 1.20],
   ]).slice("2022-03-02", "2022-10-28").compound(100.0)).toBeCloseTo(106.36205438642038);
+});
+
+test("Read Curve From Json", () => {
+  expect(readCompoundCurveFromJson("test/test_input_3", readFundsFromJson("test/test_input_4"))
+    .compound(100.0))
+    .toBe(132.0);
+});
+
+test("Make Curve From Single Rate Value", () => {
+  expect(readCompoundCurveFromJson("1.10", readFundsFromJson("test/test_input_4")).compound(100.0))
+    .toBe(121.0);
 });

@@ -1,7 +1,10 @@
 // Copyright (c) Adrien Cransac
 // License: MIT
 
+const { valueDate } = require('./assetsvalue.js');
 const Decimal = require('decimal.js-light');
+const { readFileSync } = require('fs');
+const { assetsValues } = require('./fund.js');
 const { DateTime, Interval } = require('luxon');
 
 /*
@@ -116,4 +119,44 @@ function CompoundCurve(rates) {
   };
 }
 
-module.exports = { CompoundCurve };
+/*
+ * Read compound operator from JSON
+ * @param {string} filePathOrSingleRate - The path to the file with the compound rates' data. The
+ *   latter is always an array of compound rates' interval and value. Alternatively, a single value
+ *   can be specified as a string to apply to all funds' cash flows
+ * @param {Fund[]} funds - The funds whose cash flows are time-valued
+ * @return {CompoundCurve}
+ */
+function readCompoundCurveFromJson(filePathOrSingleRate, funds) {
+  if (isNaN(filePathOrSingleRate)) {
+    return new CompoundCurve(JSON.parse(readFileSync(filePathOrSingleRate, {encoding: "utf8"})));
+  }
+  else {
+    const dateLimits = assetsValues => {
+      const firstDate = DateTime.fromJSDate(valueDate(assetsValues[0]));
+
+      return assetsValues.slice(1).reduce(([earliestDate, latestDate], assetsValue) => {
+        const date = DateTime.fromJSDate(valueDate(assetsValue));
+
+        return [date < earliestDate ? date : earliestDate, date > latestDate ? date : latestDate];
+      }, [firstDate, firstDate])
+    };
+
+    const [earliestDate, latestDate] = funds.slice(1).reduce(([earliestDate, latestDate], fund) => {
+      const [fundEarliestDate, fundLatestDate] = dateLimits(assetsValues(fund));
+
+      return [
+        fundEarliestDate < earliestDate ? fundEarliestDate : earliestDate,
+        fundLatestDate > latestDate ? fundLatestDate : latestDate
+      ];
+    }, dateLimits(assetsValues(funds[0])));
+
+    return new CompoundCurve([
+      [Interval.fromDateTimes(earliestDate, latestDate).toISODate(), filePathOrSingleRate]]);
+  }
+}
+
+module.exports = {
+  CompoundCurve,
+  readCompoundCurveFromJson
+};
