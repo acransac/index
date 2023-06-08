@@ -3,7 +3,6 @@
 // Copyright (c) Adrien Cransac
 // License: MIT
 
-const { readFileSync } = require('fs');
 const { readFundsFromJson } = require('./fund.js');
 const { DateTime } = require('luxon');
 const { reportOnFunds } = require('./report.js');
@@ -63,7 +62,7 @@ const yargs = require('yargs/yargs');
   try {
     return (funds => {
       return console.log(reportOnFunds(funds, argv.begin, argv.end, argv.width, argv.height));
-    })(readFundsFromJson(readFileSync(argv._.length > 0 ? argv._[0] : process.stdin.fd, {encoding: "utf-8"})));
+    })(readFundsFromJson(argv._.length > 0 ? argv._[0] : process.stdin.fd));
   }
   catch (error) {
     return console.log(`${error.name}: ${error.message}`);

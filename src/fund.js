@@ -2,6 +2,7 @@
 // License: MIT
 
 const { readAssetsValuesFromJson } = require('./assetsvalue.js');
+const { readFileSync } = require('fs');
 
 function makeFund(fundName, currency, assetsValues) {
   return [fundName, currency, assetsValues];
@@ -31,13 +32,16 @@ function assetsValues(fund) {
 
 /*
  * Read fund data from JSON. There can be multiple funds
- * @param {string} jsonString - The funds' JSON data as a string. It is always an array of fund entries
+ * @param {string} filePath - The path to the file with the funds' JSON data. The latter is always
+ *   an array of fund entries
  * @return {[Fund]}
  */
-function readFundsFromJson(jsonString) {
-  return JSON.parse(jsonString).map(fundJson => makeFund(fundJson.fundName,
-                                                         fundJson.currency,
-                                                         readAssetsValuesFromJson(JSON.stringify(fundJson.assetsValues))));
+function readFundsFromJson(filePath) {
+  return JSON.parse(readFileSync(filePath, {encoding: "utf8"})).map(fundJson =>
+    makeFund(
+      fundJson.fundName,
+      fundJson.currency,
+      readAssetsValuesFromJson(JSON.stringify(fundJson.assetsValues))));
 }
 
 module.exports = {

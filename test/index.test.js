@@ -35,19 +35,7 @@ test("Relative Market Value With Added Cash", () => {
 });
 
 test("Index From Fund Json", () => {
-  const testFundJson = JSON.stringify([
-    {
-      fundName: "Test Fund",
-      currency: "USD",
-      assetsValues: [
-        {valueDate: new Date(2021, 0, 24), marketValue: 1000.0, addedCash: 0.0},
-        {valueDate: new Date(2021, 0, 25), marketValue: 2000.0, addedCash: 0.0},
-        {valueDate: new Date(2021, 0, 26), marketValue: 1500.0, addedCash: 0.0}
-      ]
-    }
-  ]);
-
-  expect(relativeMarketValue(assetsValues(readFundsFromJson(testFundJson)[0])))
+  expect(relativeMarketValue(assetsValues(readFundsFromJson("test/test_input_1")[0])))
     .toEqual([100, 200, 150]);
 });
 

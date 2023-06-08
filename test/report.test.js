@@ -170,34 +170,11 @@ function control() {
   ].join("\n");
 }
 
-function testFunds() {
-  return JSON.stringify([
-    {
-      fundName: "Test Fund 1",
-      currency: "USD",
-      assetsValues: [
-        {valueDate: new Date(2021, 0, 24), marketValue: 1000.0, addedCash: 1000.0},
-        {valueDate: new Date(2021, 0, 25), marketValue: 2000.0, addedCash: 0.0},
-        {valueDate: new Date(2021, 0, 26), marketValue: 1500.0, addedCash: 0.0}
-      ]
-    },
-    {
-      fundName: "Test Fund 2",
-      currency: "EUR",
-      assetsValues: [
-        {valueDate: new Date(2021, 0, 24), marketValue: 1000.0, addedCash: 1000.0},
-        {valueDate: new Date(2021, 0, 25), marketValue: 2000.0, addedCash: 1000.0},
-        {valueDate: new Date(2021, 0, 26), marketValue: 1500.0, addedCash: 0.0}
-      ]
-    }
-  ]);
-}
-
 // # Tests
 
 test("Report On Funds", () => {
   expect(reportOnFunds(
-    readFundsFromJson(testFunds()),
+    readFundsFromJson("test/test_input_2"),
     new Date(2021, 0, 24),
     new Date(2021, 0, 26),
     new CompoundCurve([["2021-01-01/2021-02-01", 1.00]]),
@@ -208,7 +185,7 @@ test("Report On Funds", () => {
 
 test("Report On Funds With Unspecified Interval", () => {
   expect(reportOnFunds(
-    readFundsFromJson(testFunds()),
+    readFundsFromJson("test/test_input_2"),
     undefined,
     undefined,
     new CompoundCurve([["2021-01-01/2021-02-01", 1.00]]),

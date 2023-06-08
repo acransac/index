@@ -1,0 +1,20 @@
+[
+  {
+    "fundName": "Test Fund 1",
+    "currency": "USD",
+    "assetsValues": [
+      {"valueDate": "2021-01-24", "marketValue": 1000.0, "addedCash": 1000.0},
+      {"valueDate": "2021-01-25", "marketValue": 2000.0, "addedCash": 0.0},
+      {"valueDate": "2021-01-26", "marketValue": 1500.0, "addedCash": 0.0}
+    ]
+  },
+  {
+    "fundName": "Test Fund 2",
+    "currency": "EUR",
+    "assetsValues": [
+      {"valueDate": "2021-01-24", "marketValue": 1000.0, "addedCash": 1000.0},
+      {"valueDate": "2021-01-25", "marketValue": 2000.0, "addedCash": 1000.0},
+      {"valueDate": "2021-01-26", "marketValue": 1500.0, "addedCash": 0.0}
+    ]
+  }
+]

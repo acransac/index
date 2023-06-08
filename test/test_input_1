@@ -1,0 +1,11 @@
+[
+  {
+    "fundName": "Test Fund",
+    "currency": "USD",
+    "assetsValues": [
+      {"valueDate": "2021-01-24", "marketValue": 1000.0, "addedCash": 0.0},
+      {"valueDate": "2021-01-25", "marketValue": 2000.0, "addedCash": 0.0},
+      {"valueDate": "2021-01-26", "marketValue": 1500.0, "addedCash": 0.0}
+    ]
+  }
+]
