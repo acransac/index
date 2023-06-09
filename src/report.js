@@ -10,8 +10,10 @@ const { plotIndex, plotTimeline } = require('./plot.js');
 /*
  * Report plot, highlights and history for each index in every fund
  * @param {Fund[]} funds - The funds to report on
- * @param {Date} beginDate - The begin date to report from
- * @param {Date} endDate - The end date to report to
+ * @param {Date} [beginDate] - The begin date to report from. It defaults to the date of the first
+ *   valuation in a fund
+ * @param {Date} [endDate] - The end date to report to. It defaults to the date of the last
+ *   valuation in a fund
  * @param {CompoundCurve} compoundCurve - The time-variable compound operator to compute the time
  *   value of cash flows
  * @param {number} plotWidth - The maximum admissible plot width in printable columns (number of
