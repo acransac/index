@@ -3,6 +3,7 @@
 // Copyright (c) Adrien Cransac
 // License: MIT
 
+const { readCompoundCurveFromJson } = require('./compoundcurve.js');
 const { readFundsFromJson } = require('./fund.js');
 const { DateTime } = require('luxon');
 const { reportOnFunds } = require('./report.js');
@@ -45,6 +46,10 @@ const yargs = require('yargs/yargs');
       }
     })
     .alias("h", "height")
+    .option("r")
+    .describe("r", "The path to the file with the compound rates to compute the time value of cash flows. Alternatively, the value of a single rate that applies to all cash flows")
+    .default("r", 1.00)
+    .alias("r", "rates")
     .option("w")
     .describe("w", "The charts' width in printed characters. It influences the accuracy of the charts")
     .default("w", 120)
@@ -61,7 +66,13 @@ const yargs = require('yargs/yargs');
 
   try {
     return (funds => {
-      return console.log(reportOnFunds(funds, argv.begin, argv.end, argv.width, argv.height));
+      return console.log(reportOnFunds(
+        funds,
+        argv.begin,
+        argv.end,
+        readCompoundCurveFromJson(argv.rates, funds),
+        argv.width,
+        argv.height));
     })(readFundsFromJson(argv._.length > 0 ? argv._[0] : process.stdin.fd));
   }
   catch (error) {
