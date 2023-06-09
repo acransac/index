@@ -57,6 +57,15 @@ test("Fail To Slice After Curve Interval", () => {
       + "time interval"));
 });
 
+test("Fail To Slice With End Before Start", () => {
+  expect(() => (new CompoundCurve([
+    ["2023-05-28/2023-05-30", 1.0],
+    ["2023-05-30/2023-06-01", 1.0]
+  ])).slice("2023-05-29", "2023-05-28"))
+    .toThrow(new Error("can't slice compound curve. The slice's end date is earlier than the "
+      + "slice's start date"));
+});
+
 test("Fail To Compound Invalid Cash Flow Value", () => {
   expect(() => new CompoundCurve([["2023-05-01/2023-06-01", 1.0]]).compound("abc"))
     .toThrow(new Error("can't compound cash flow value. The following is not a valid cash flow "
@@ -94,6 +103,6 @@ test("Read Curve From Json", () => {
 });
 
 test("Make Curve From Single Rate Value", () => {
-  expect(readCompoundCurveFromJson("1.10", readFundsFromJson("test/test_input_4")).compound(100.0))
+  expect(readCompoundCurveFromJson(1.10, readFundsFromJson("test/test_input_4")).compound(100.0))
     .toBe(121.0);
 });

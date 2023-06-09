@@ -81,6 +81,18 @@ function CompoundCurve(rates) {
       throw new Error(
         "can't slice compound curve. The slice's end date is later than the curve's time interval");
     }
+    else if (end < start) {
+      throw new Error(
+        "can't slice compound curve. The slice's end date is earlier than the slice's start date");
+    }
+    else if (start.equals(curve.at(-1)[0].end)) {
+      return new CompoundCurve([
+        [
+          Interval.fromDateTimes(start, end).toISODate(),
+          curve.at(-1)[1]
+        ]
+      ]);
+    }
     else {
       const cutCurve = (date, isAfterCut) => {
         const intervalId = curve.findIndex(([interval, rate]) =>
@@ -121,9 +133,9 @@ function CompoundCurve(rates) {
 
 /*
  * Read compound operator from JSON
- * @param {string} filePathOrSingleRate - The path to the file with the compound rates' data. The
- *   latter is always an array of compound rates' interval and value. Alternatively, a single value
- *   can be specified as a string to apply to all funds' cash flows
+ * @param {string|number} filePathOrSingleRate - The path to the file with the compound rates' data.
+ *   The latter is always an array of compound rates' interval and value. Alternatively, a single
+ *   value can be specified to apply to all funds' cash flows
  * @param {Fund[]} funds - The funds whose cash flows are time-valued
  * @return {CompoundCurve}
  */
