@@ -76,6 +76,6 @@ const yargs = require('yargs/yargs');
     })(readFundsFromJson(argv._.length > 0 ? argv._[0] : process.stdin.fd));
   }
   catch (error) {
-    return console.log(`${error.name}: ${error.message}`);
+    return console.error(`${error.name}: ${error.message}`);
   }
 })();

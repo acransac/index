@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Report With Higher Charts 1`] = `
+"# S&P 500
+## Relative Market Value
+
+     117.98 ┤                                                            ╭ 
+     115.82 ┤                                                            │ 
+     113.65 ┤                                                       ╭────╯ 
+     111.49 ┤                                                       │      
+     109.32 ┤                                        ╭────╮         │      
+     107.16 ┤                                        │    │         │      
+     104.99 ┤                                        │    ╰────╮    │      
+     102.83 ┤                                        │         │    │      
+     100.66 ┤                                   ╭────╯         ╰────╯      
+      98.50 ┼─────────╮                         │                          
+      96.34 ┤         │                    ╭────╯                          
+      94.17 ┤         │               ╭────╯                               
+      92.01 ┤         │               │                                    
+      89.84 ┤         ╰─────╮         │                                    
+      87.68 ┤               │    ╭────╯                                    
+      85.51 ┤               │    │                                         
+      83.35 ┤               │    │                                         
+      81.18 ┤               │    │                                         
+      79.02 ┤               │    │                                         
+      76.85 ┤               ╰────╯                                         
+             ─────────────────────────────────────────────────────────────>
+             Jan   Feb Mar   Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec  
+             2020                                                         
+
+### Highlights
+
+| Highlights     | Value          |
+| -------------- | -------------- |
+| Begin          | 100.00         |
+| End            | 117.98         |
+| Min            | 76.85          |
+| Max            | 117.98         |
+| Last Variation | +2.97 (+2.58%) |
+
+### History
+
+| Date        | Index Value |
+| ----------- | ----------- |
+| Jan 1, 2020 | 100.00      |
+| Feb 1, 2020 | 99.96       |
+| Mar 1, 2020 | 91.87       |
+| Apr 1, 2020 | 76.85       |
+| May 1, 2020 | 88.24       |
+| Jun 1, 2020 | 95.39       |
+| Jul 1, 2020 | 96.87       |
+| Aug 1, 2020 | 102.34      |
+| Sep 1, 2020 | 110.42      |
+| Oct 1, 2020 | 105.55      |
+| Nov 1, 2020 | 102.68      |
+| Dec 1, 2020 | 115.02      |
+| Jan 1, 2021 | 117.98      |
+
+## Return On Investment
+
+      17.93 ┤                                                            ╭ 
+      15.77 ┤                                                       ╭────╯ 
+      13.61 ┤                                                       │      
+      11.44 ┤                                        ╭────╮         │      
+       9.28 ┤                                        │    │         │      
+       7.12 ┤                                        │    ╰────╮    │      
+       4.96 ┤                                        │         │    │      
+       2.80 ┤                                   ╭────╯         ╰────╯      
+       0.63 ┼─────────╮                         │                          
+      -1.53 ┤         │                    ╭────╯                          
+      -3.69 ┤         │               ╭────╯                               
+      -5.85 ┼         │               │                                    
+      -8.01 ┤         ╰─────╮         │                                    
+     -10.18 ┤               │    ╭────╯                                    
+     -12.34 ┤               │    │                                         
+     -14.50 ┤               │    │                                         
+     -16.66 ┤               │    │                                         
+     -18.82 ┤               │    │                                         
+     -20.99 ┤               │    │                                         
+     -23.15 ┤               ╰────╯                                         
+             ─────────────────────────────────────────────────────────────>
+             Jan   Feb Mar   Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec  
+             2020                                                         
+
+### Highlights
+
+| Highlights     | Value           |
+| -------------- | --------------- |
+| Begin          | 0.00            |
+| End            | 17.93           |
+| Min            | -23.15          |
+| Max            | 17.93           |
+| Last Variation | +2.91 (+19.40%) |
+
+### History
+
+| Date        | Index Value |
+| ----------- | ----------- |
+| Jan 1, 2020 | 0.00        |
+| Feb 1, 2020 | -0.04       |
+| Mar 1, 2020 | -8.13       |
+| Apr 1, 2020 | -23.15      |
+| May 1, 2020 | -11.76      |
+| Jun 1, 2020 | -4.61       |
+| Jul 1, 2020 | -3.13       |
+| Aug 1, 2020 | 2.34        |
+| Sep 1, 2020 | 10.42       |
+| Oct 1, 2020 | 5.55        |
+| Nov 1, 2020 | 2.68        |
+| Dec 1, 2020 | 15.02       |
+| Jan 1, 2021 | 17.93       |
+
+"
+`;
+
+exports[`Report With Thinner Charts 1`] = `
+"# S&P 500
+## Relative Market Value
+
+     117.98 ┤     ╭ 
+     115.86 ┤     │ 
+     113.73 ┤     │ 
+     111.61 ┤     │ 
+     109.48 ┤   ╭╮│ 
+     107.36 ┤   │││ 
+     105.23 ┤   │││ 
+     103.11 ┤   │││ 
+     100.98 ┤   │╰╯ 
+      98.86 ┼╮  │   
+      96.73 ┤│ ╭╯   
+      94.61 ┤│ │    
+      92.48 ┤│ │    
+      90.36 ┤╰╮│    
+      88.23 ┤ ╰╯    
+             ──────>
+             JMMJSN
+             2020  
+
+### Highlights
+
+| Highlights     | Value          |
+| -------------- | -------------- |
+| Begin          | 100.00         |
+| End            | 117.98         |
+| Min            | 76.85          |
+| Max            | 117.98         |
+| Last Variation | +2.97 (+2.58%) |
+
+### History
+
+| Date        | Index Value |
+| ----------- | ----------- |
+| Jan 1, 2020 | 100.00      |
+| Feb 1, 2020 | 99.96       |
+| Mar 1, 2020 | 91.87       |
+| Apr 1, 2020 | 76.85       |
+| May 1, 2020 | 88.24       |
+| Jun 1, 2020 | 95.39       |
+| Jul 1, 2020 | 96.87       |
+| Aug 1, 2020 | 102.34      |
+| Sep 1, 2020 | 110.42      |
+| Oct 1, 2020 | 105.55      |
+| Nov 1, 2020 | 102.68      |
+| Dec 1, 2020 | 115.02      |
+| Jan 1, 2021 | 117.98      |
+
+## Return On Investment
+
+      17.93 ┤     ╭ 
+      15.81 ┤     │ 
+      13.69 ┤     │ 
+      11.57 ┤   ╭╮│ 
+       9.45 ┤   │││ 
+       7.32 ┤   │││ 
+       5.20 ┼   │││ 
+       3.08 ┤   │╰╯ 
+       0.96 ┼╮  │   
+      -1.16 ┤│ ╭╯   
+      -3.28 ┤│ │    
+      -5.40 ┤│ │    
+      -7.52 ┤╰╮│    
+      -9.64 ┤ ││    
+     -11.77 ┤ ╰╯    
+             ──────>
+             JMMJSN
+             2020  
+
+### Highlights
+
+| Highlights     | Value           |
+| -------------- | --------------- |
+| Begin          | 0.00            |
+| End            | 17.93           |
+| Min            | -23.15          |
+| Max            | 17.93           |
+| Last Variation | +2.91 (+19.40%) |
+
+### History
+
+| Date        | Index Value |
+| ----------- | ----------- |
+| Jan 1, 2020 | 0.00        |
+| Feb 1, 2020 | -0.04       |
+| Mar 1, 2020 | -8.13       |
+| Apr 1, 2020 | -23.15      |
+| May 1, 2020 | -11.76      |
+| Jun 1, 2020 | -4.61       |
+| Jul 1, 2020 | -3.13       |
+| Aug 1, 2020 | 2.34        |
+| Sep 1, 2020 | 10.42       |
+| Oct 1, 2020 | 5.55        |
+| Nov 1, 2020 | 2.68        |
+| Dec 1, 2020 | 15.02       |
+| Jan 1, 2021 | 17.93       |
+
+"
+`;
+
+exports[`Report Within Specific Interval 1`] = `
+"# S&P 500
+## Relative Market Value
+
+      96.87 ┤                                                                                          ╭ 
+      95.44 ┤                                                            ╭─────────────────────────────╯ 
+      94.01 ┤                                                            │                               
+      92.58 ┤                                                            │                               
+      91.15 ┤                                                            │                               
+      89.72 ┤                                                            │                               
+      88.29 ┤                             ╭──────────────────────────────╯                               
+      86.86 ┤                             │                                                              
+      85.43 ┤                             │                                                              
+      84.00 ┤                             │                                                              
+      82.57 ┤                             │                                                              
+      81.14 ┤                             │                                                              
+      79.71 ┤                             │                                                              
+      78.28 ┤                             │                                                              
+      76.85 ┼─────────────────────────────╯                                                              
+             ───────────────────────────────────────────────────────────────────────────────────────────>
+             Apr                           May                            Jun                           
+             2020                                                                                       
+
+### Highlights
+
+| Highlights     | Value          |
+| -------------- | -------------- |
+| Begin          | 76.85          |
+| End            | 96.87          |
+| Min            | 76.85          |
+| Max            | 96.87          |
+| Last Variation | +1.49 (+1.56%) |
+
+### History
+
+| Date        | Index Value |
+| ----------- | ----------- |
+| Apr 1, 2020 | 76.85       |
+| May 1, 2020 | 88.24       |
+| Jun 1, 2020 | 95.39       |
+| Jul 1, 2020 | 96.87       |
+
+## Return On Investment
+
+      -3.13 ┤                                                                                          ╭ 
+      -4.56 ┤                                                            ╭─────────────────────────────╯ 
+      -5.99 ┤                                                            │                               
+      -7.42 ┤                                                            │                               
+      -8.85 ┤                                                            │                               
+     -10.28 ┤                                                            │                               
+     -11.71 ┤                             ╭──────────────────────────────╯                               
+     -13.14 ┤                             │                                                              
+     -14.57 ┤                             │                                                              
+     -16.00 ┤                             │                                                              
+     -17.43 ┤                             │                                                              
+     -18.86 ┤                             │                                                              
+     -20.29 ┤                             │                                                              
+     -21.72 ┤                             │                                                              
+     -23.15 ┼─────────────────────────────╯                                                              
+             ───────────────────────────────────────────────────────────────────────────────────────────>
+             Apr                           May                            Jun                           
+             2020                                                                                       
+
+### Highlights
+
+| Highlights     | Value           |
+| -------------- | --------------- |
+| Begin          | -23.15          |
+| End            | -3.13           |
+| Min            | -23.15          |
+| Max            | -3.13           |
+| Last Variation | +1.49 (+32.22%) |
+
+### History
+
+| Date        | Index Value |
+| ----------- | ----------- |
+| Apr 1, 2020 | -23.15      |
+| May 1, 2020 | -11.76      |
+| Jun 1, 2020 | -4.61       |
+| Jul 1, 2020 | -3.13       |
+
+"
+`;
+
+exports[`Show Help 1`] = `
+"Usage: app.js [options] [file]
+
+Print a performance report on the funds described in the file.
+
+With no file, read standard input.
+
+Options:
+      --help     Show help                                             [boolean]
+      --version  Show version number                                   [boolean]
+  -b, --begin    The begin date of the report with format YYYY-MM-DD. If absent,
+                 it is the earliest valuation per fund
+  -e, --end      The end date of the report with format YYYY-MM-DD. If absent,
+                 it is the latest valuation per fund
+  -h, --height   The charts' height in printed lines               [default: 15]
+  -r, --rates    The path to the file with the compound rates to compute the
+                 time value of cash flows. Alternatively, the value of a single
+                 rate that applies to all cash flows                [default: 1]
+  -w, --width    The charts' width in printed characters. It influences the
+                 accuracy of the charts                           [default: 120]
+"
+`;
